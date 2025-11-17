@@ -530,154 +530,12 @@
             text-align: center;
         }
         
-        /* PDF Viewer Styles */
-        .pdf-viewer-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        
-        .pdf-viewer-content {
-            background-color: white;
-            border-radius: 10px;
-            width: 90%;
-            height: 90%;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-        
-        .pdf-viewer-header {
-            padding: 1rem;
-            background-color: var(--dark);
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .pdf-viewer-body {
-            flex: 1;
-            padding: 1rem;
-            overflow: auto;
-        }
-        
-        .pdf-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        
-        .close-btn {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        
-        .pdf-resources {
-            margin-top: 1.5rem;
-            padding-top: 1rem;
-            border-top: 1px solid #eee;
-        }
-        
-        .pdf-resources h4 {
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-        }
-        
-        .resource-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-        
-        .resource-item {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            width: 100%;
-        }
-        
-        .pdf-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-right: 0.5rem;
-            text-decoration: none;
-            display: inline-block;
-        }
-        
-        .pdf-btn:hover {
-            background: #2980b9;
-        }
-        
-        .pdf-btn-secondary {
-            background: var(--secondary);
-        }
-        
-        .pdf-btn-secondary:hover {
-            background: #27ae60;
-        }
-        
-        .tab-container {
-            margin-top: 1rem;
-        }
-        
-        .tab-buttons {
-            display: flex;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        .tab-button {
-            padding: 0.7rem 1.5rem;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-            color: var(--dark);
-            border-bottom: 3px solid transparent;
-        }
-        
-        .tab-button.active {
-            color: var(--primary);
-            border-bottom: 3px solid var(--primary);
-        }
-        
-        .tab-content {
-            padding: 1.5rem 0;
-        }
-        
-        .tab-pane {
-            display: none;
-        }
-        
-        .tab-pane.active {
-            display: block;
-        }
-        
         footer {
             background: var(--dark);
             color: white;
             text-align: center;
             padding: 1.5rem;
             margin-top: 3rem;
-        }
-        
-        .hidden {
-            display: none;
         }
         
         @media (max-width: 768px) {
@@ -696,10 +554,6 @@
             .queue-container {
                 width: 100%;
             }
-            
-            .tab-buttons {
-                flex-direction: column;
-            }
         }
     </style>
 </head>
@@ -714,7 +568,6 @@
             <div class="tab active" data-tab="modules">Learning Modules</div>
             <div class="tab" data-tab="games">Interactive Games</div>
             <div class="tab" data-tab="questions">Exam Questions</div>
-            <div class="tab" data-tab="resources">PDF Resources</div>
             <div class="tab" data-tab="notes">Detailed Notes</div>
         </div>
         
@@ -763,111 +616,94 @@
         </div>
         
         <div id="games-tab" class="tab-content">
-            <div class="tab-container">
-                <div class="tab-buttons">
-                    <button class="tab-button active" data-tab="sorting">Sorting Challenge</button>
-                    <button class="tab-button" data-tab="tree">Binary Tree Builder</button>
-                    <button class="tab-button" data-tab="stack">Stack Simulator</button>
-                    <button class="tab-button" data-tab="queue">Queue Simulator</button>
+            <h2>Interactive Learning Games</h2>
+            
+            <div class="game-container">
+                <h3 class="game-title">Data Structure Sorting Challenge</h3>
+                <div class="game-instructions">
+                    <strong>How to Play:</strong> Drag and drop the elements to sort them in ascending order. Click "Check Order" to verify your sorting.
                 </div>
                 
-                <div class="tab-content">
-                    <div class="tab-pane active" id="sorting-tab">
-                        <div class="game-container">
-                            <h3 class="game-title">Data Structure Sorting Challenge</h3>
-                            <div class="game-instructions">
-                                <strong>How to Play:</strong> Drag and drop the elements to sort them in ascending order. Click "Check Order" to verify your sorting.
-                            </div>
-                            
-                            <div class="game-area">
-                                <div id="sorting-game">
-                                    <div class="sortable-list" id="sortable-list">
-                                        <!-- Elements will be dynamically added here -->
-                                    </div>
-                                </div>
-                                <div class="game-stats">
-                                    <div>Score: <span id="sorting-score">0</span></div>
-                                    <div>Time: <span id="sorting-time">60</span>s</div>
-                                </div>
-                                <div class="game-controls">
-                                    <button class="game-btn" id="start-sorting">Start Game</button>
-                                    <button class="game-btn" id="check-sorting">Check Order</button>
-                                    <button class="game-btn" id="reset-sorting">Reset</button>
-                                </div>
-                                <div id="sorting-result" class="result"></div>
-                            </div>
+                <div class="game-area">
+                    <div id="sorting-game">
+                        <div class="sortable-list" id="sortable-list">
+                            <!-- Elements will be dynamically added here -->
                         </div>
                     </div>
-                    
-                    <div class="tab-pane" id="tree-tab">
-                        <div class="game-container">
-                            <h3 class="game-title">Binary Tree Builder</h3>
-                            <div class="game-instructions">
-                                <strong>How to Play:</strong> Insert values to build a Binary Search Tree. The tree will automatically balance according to BST rules.
-                            </div>
-                            
-                            <div class="game-area">
-                                <div id="tree-game">
-                                    <div id="tree-visualization">
-                                        <!-- Tree visualization will be dynamically generated -->
-                                    </div>
-                                </div>
-                                <div class="game-controls">
-                                    <input type="number" id="tree-value" placeholder="Enter value">
-                                    <button class="game-btn" id="insert-value">Insert</button>
-                                    <button class="game-btn" id="clear-tree">Clear Tree</button>
-                                </div>
-                            </div>
+                    <div class="game-stats">
+                        <div>Score: <span id="sorting-score">0</span></div>
+                        <div>Time: <span id="sorting-time">60</span>s</div>
+                    </div>
+                    <div class="game-controls">
+                        <button class="game-btn" id="start-sorting">Start Game</button>
+                        <button class="game-btn" id="check-sorting">Check Order</button>
+                        <button class="game-btn" id="reset-sorting">Reset</button>
+                    </div>
+                    <div id="sorting-result" class="result"></div>
+                </div>
+            </div>
+            
+            <div class="game-container">
+                <h3 class="game-title">Binary Tree Builder</h3>
+                <div class="game-instructions">
+                    <strong>How to Play:</strong> Insert values to build a Binary Search Tree. The tree will automatically balance according to BST rules.
+                </div>
+                
+                <div class="game-area">
+                    <div id="tree-game">
+                        <div id="tree-visualization">
+                            <!-- Tree visualization will be dynamically generated -->
                         </div>
                     </div>
-                    
-                    <div class="tab-pane" id="stack-tab">
-                        <div class="game-container">
-                            <h3 class="game-title">Stack Operations Simulator</h3>
-                            <div class="game-instructions">
-                                <strong>How to Play:</strong> Use Push to add elements to the stack and Pop to remove them. Try to remember the LIFO (Last In First Out) principle.
-                            </div>
-                            
-                            <div class="game-area">
-                                <div id="stack-game">
-                                    <div class="stack-container" id="stack-container">
-                                        <!-- Stack elements will be dynamically added here -->
-                                    </div>
-                                </div>
-                                <div class="game-controls">
-                                    <input type="number" id="stack-value" placeholder="Enter value">
-                                    <button class="game-btn" id="push-stack">Push</button>
-                                    <button class="game-btn" id="pop-stack">Pop</button>
-                                    <button class="game-btn" id="clear-stack">Clear</button>
-                                </div>
-                                <div id="stack-result" class="result"></div>
-                            </div>
+                    <div class="game-controls">
+                        <input type="number" id="tree-value" placeholder="Enter value">
+                        <button class="game-btn" id="insert-value">Insert</button>
+                        <button class="game-btn" id="clear-tree">Clear Tree</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="game-container">
+                <h3 class="game-title">Stack Operations Simulator</h3>
+                <div class="game-instructions">
+                    <strong>How to Play:</strong> Use Push to add elements to the stack and Pop to remove them. Try to remember the LIFO (Last In First Out) principle.
+                </div>
+                
+                <div class="game-area">
+                    <div id="stack-game">
+                        <div class="stack-container" id="stack-container">
+                            <!-- Stack elements will be dynamically added here -->
                         </div>
                     </div>
-                    
-                    <div class="tab-pane" id="queue-tab">
-                        <div class="game-container">
-                            <h3 class="game-title">Queue Operations Simulator</h3>
-                            <div class="game-instructions">
-                                <strong>How to Play:</strong> Use Enqueue to add elements to the queue and Dequeue to remove them. Remember the FIFO (First In First Out) principle.
-                            </div>
-                            
-                            <div class="game-area">
-                                <div id="queue-game">
-                                    <div class="queue-container" id="queue-container">
-                                        <!-- Queue elements will be dynamically added here -->
-                                    </div>
-                                </div>
-                                <div class="game-controls">
-                                    <input type="number" id="queue-value" placeholder="Enter value">
-                                    <button class="game-btn" id="enqueue">Enqueue</button>
-                                    <button class="game-btn" id="dequeue">Dequeue</button>
-                                    <button class="game-btn" id="clear-queue">Clear</button>
-                                </div>
-                                <div id="queue-result" class="result"></div>
-                            </div>
+                    <div class="game-controls">
+                        <input type="number" id="stack-value" placeholder="Enter value">
+                        <button class="game-btn" id="push-stack">Push</button>
+                        <button class="game-btn" id="pop-stack">Pop</button>
+                        <button class="game-btn" id="clear-stack">Clear</button>
+                    </div>
+                    <div id="stack-result" class="result"></div>
+                </div>
+            </div>
+            
+            <div class="game-container">
+                <h3 class="game-title">Queue Operations Simulator</h3>
+                <div class="game-instructions">
+                    <strong>How to Play:</strong> Use Enqueue to add elements to the queue and Dequeue to remove them. Remember the FIFO (First In First Out) principle.
+                </div>
+                
+                <div class="game-area">
+                    <div id="queue-game">
+                        <div class="queue-container" id="queue-container">
+                            <!-- Queue elements will be dynamically added here -->
                         </div>
                     </div>
+                    <div class="game-controls">
+                        <input type="number" id="queue-value" placeholder="Enter value">
+                        <button class="game-btn" id="enqueue">Enqueue</button>
+                        <button class="game-btn" id="dequeue">Dequeue</button>
+                        <button class="game-btn" id="clear-queue">Clear</button>
+                    </div>
+                    <div id="queue-result" class="result"></div>
                 </div>
             </div>
         </div>
@@ -897,15 +733,6 @@
                 <div id="exam-questions-container">
                     <!-- Exam questions will be dynamically loaded here -->
                 </div>
-            </div>
-        </div>
-        
-        <div id="resources-tab" class="tab-content">
-            <h2>PDF Resources</h2>
-            <p>Download or view PDF materials for each module</p>
-            
-            <div id="pdf-resources-container">
-                <!-- PDF resources will be dynamically loaded here -->
             </div>
         </div>
         
@@ -943,107 +770,12 @@
         </div>
     </div>
     
-    <!-- PDF Viewer Modal -->
-    <div class="pdf-viewer-modal hidden" id="pdf-modal">
-        <div class="pdf-viewer-content">
-            <div class="pdf-viewer-header">
-                <h3 id="pdf-title">PDF Viewer</h3>
-                <button class="close-btn" id="close-pdf-btn">&times;</button>
-            </div>
-            <div class="pdf-viewer-body">
-                <iframe class="pdf-iframe" id="pdf-iframe" src=""></iframe>
-            </div>
-        </div>
-    </div>
-    
     <footer>
         <p>Data Structures Learning Game &copy; 2023 | Based on PCCST303 Syllabus</p>
     </footer>
 
     <script>
-        // PDF Resources data
-        const pdfResources = {
-            1: [
-                {
-                    name: "Module 1 - Complete Notes",
-                    type: "pdf",
-                    url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-                    description: "Complete notes for Module 1 topics including data abstraction, performance analysis, arrays, stacks, and queues"
-                },
-                {
-                    name: "Stacks and Queues Tutorial",
-                    type: "pdf", 
-                    url: "https://www.africau.edu/images/default/sample.pdf",
-                    description: "Detailed tutorial on stack and queue operations with examples and implementations"
-                },
-                {
-                    name: "Complexity Analysis Guide",
-                    type: "pdf",
-                    url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-                    description: "Comprehensive guide to time and space complexity analysis with Big O notation"
-                },
-                {
-                    name: "Array Operations Handbook",
-                    type: "pdf",
-                    url: "https://www.africau.edu/images/default/sample.pdf",
-                    description: "Complete reference for array operations including sparse matrix representation"
-                }
-            ],
-            2: [
-                {
-                    name: "Module 2 - Complete Notes",
-                    type: "pdf",
-                    url: "https://www.africau.edu/images/default/sample.pdf",
-                    description: "Complete notes for Module 2 topics including linked lists and memory management"
-                },
-                {
-                    name: "Linked List Implementation Guide",
-                    type: "pdf",
-                    url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-                    description: "Step-by-step guide to implementing singly, doubly, and circular linked lists"
-                },
-                {
-                    name: "Memory Management Techniques",
-                    type: "pdf",
-                    url: "https://www.africau.edu/images/default/sample.pdf",
-                    description: "Detailed explanation of memory allocation schemes and garbage collection"
-                },
-                {
-                    name: "Advanced Linked List Operations",
-                    type: "pdf",
-                    url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-                    description: "Advanced operations on linked lists including reversal and cycle detection"
-                }
-            ],
-            3: [
-                {
-                    name: "Module 3 - Complete Notes",
-                    type: "pdf",
-                    url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-                    description: "Complete notes for Module 3 topics including trees and graphs"
-                },
-                {
-                    name: "Tree Traversal Algorithms",
-                    type: "pdf",
-                    url: "https://www.africau.edu/images/default/sample.pdf",
-                    description: "Detailed explanation of tree traversal methods with code examples"
-                },
-                {
-                    name: "Graph Theory Fundamentals",
-                    type: "pdf",
-                    url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-                    description: "Introduction to graph theory, representations, and basic algorithms"
-                },
-                {
-                    name: "Binary Search Trees Complete Guide",
-                    type: "pdf",
-                    url: "https://www.africau.edu/images/default/sample.pdf",
-                    description: "Comprehensive guide to BST operations, balancing, and applications"
-                }
-            ]
-        };
-
-        // Module data (your existing data remains the same)
+        // Module data
         const modules = {
             1: {
                 title: "Basic Concepts of Data Structures",
@@ -1053,21 +785,1029 @@
                         content: "Data abstraction is the process of hiding the implementation details and showing only the functionality to the user. In data structures, this means defining ADTs (Abstract Data Types) that specify operations without revealing how they're implemented.",
                         example: "Think of a car's steering wheel - you know how to use it to turn the car, but you don't need to know the mechanical details of how it works."
                     },
-                    // ... rest of your existing module data
+                    {
+                        title: "Performance Analysis",
+                        content: "Performance analysis involves evaluating the efficiency of algorithms in terms of time and space complexity. We use Big O notation to describe how an algorithm's runtime or memory usage grows as input size increases.",
+                        example: "O(1) - constant time, O(n) - linear time, O(n²) - quadratic time, O(log n) - logarithmic time"
+                    },
+                    {
+                        title: "Arrays and Sparse Matrices",
+                        content: "Arrays are collections of elements stored in contiguous memory locations. Sparse matrices are matrices where most elements are zero, and we can use special representations to save memory.",
+                        example: "A 1000x1000 matrix with only 50 non-zero elements would waste memory if stored as a regular 2D array."
+                    },
+                    {
+                        title: "Stacks and Queues",
+                        content: "Stacks follow LIFO (Last In First Out) principle, while Queues follow FIFO (First In First Out). Circular queues prevent wastage of space in array implementations.",
+                        example: "Stack: like a stack of plates. Queue: like a line at a ticket counter."
+                    },
+                    {
+                        title: "Expression Evaluation",
+                        content: "We can convert infix expressions (operator between operands) to postfix (operator after operands) for easier evaluation using stacks.",
+                        example: "Infix: A + B * C → Postfix: A B C * +"
+                    }
                 ],
                 quiz: [
-                    // ... your existing quiz data
+                    {
+                        question: "Which data structure follows the LIFO principle?",
+                        options: ["Queue", "Stack", "Linked List", "Tree"],
+                        answer: 1
+                    },
+                    {
+                        question: "What is the time complexity of accessing an element in an array by index?",
+                        options: ["O(1)", "O(n)", "O(log n)", "O(n²)"],
+                        answer: 0
+                    },
+                    {
+                        question: "Which notation places the operator after the operands?",
+                        options: ["Infix", "Prefix", "Postfix", "Circular"],
+                        answer: 2
+                    }
                 ]
             },
             2: {
-                // ... your existing module 2 data
+                title: "Linked List and Memory Management",
+                concepts: [
+                    {
+                        title: "Singly Linked Lists",
+                        content: "A singly linked list consists of nodes where each node contains data and a pointer to the next node. Operations include insertion, deletion, and traversal.",
+                        example: "Like a treasure hunt where each clue points to the location of the next clue."
+                    },
+                    {
+                        title: "Doubly and Circular Linked Lists",
+                        content: "Doubly linked lists have nodes with pointers to both next and previous nodes. Circular linked lists have the last node pointing back to the first node.",
+                        example: "A doubly linked list is like a two-way street, while a circular list is like a circular race track."
+                    },
+                    {
+                        title: "Stacks and Queues using Linked Lists",
+                        content: "We can implement stacks and queues using linked lists instead of arrays, which allows dynamic sizing.",
+                        example: "A stack using linked list: push adds a node at the head, pop removes from the head."
+                    },
+                    {
+                        title: "Memory Allocation Schemes",
+                        content: "First-fit allocates the first available block that's large enough. Best-fit finds the smallest adequate block. Worst-fit finds the largest adequate block.",
+                        example: "First-fit: like taking the first parking spot you find. Best-fit: like looking for the spot that fits your car perfectly."
+                    },
+                    {
+                        title: "Garbage Collection",
+                        content: "Garbage collection automatically reclaims memory that is no longer in use by the program, preventing memory leaks.",
+                        example: "Like a cleaning service that automatically removes trash from your house."
+                    }
+                ],
+                quiz: [
+                    {
+                        question: "Which linked list allows traversal in both directions?",
+                        options: ["Singly Linked List", "Doubly Linked List", "Circular Linked List", "Linear Linked List"],
+                        answer: 1
+                    },
+                    {
+                        question: "Which memory allocation scheme finds the smallest adequate block?",
+                        options: ["First-fit", "Best-fit", "Worst-fit", "Next-fit"],
+                        answer: 1
+                    },
+                    {
+                        question: "In a linked list implementation of a stack, where does push operation add a new node?",
+                        options: ["At the tail", "At the head", "In the middle", "At a random position"],
+                        answer: 1
+                    }
+                ]
             },
             3: {
-                // ... your existing module 3 data
+                title: "Trees and Graphs",
+                concepts: [
+                    {
+                        title: "Tree Representation",
+                        content: "Trees are hierarchical data structures with a root node and child nodes. They can be represented using arrays or linked structures.",
+                        example: "Like a family tree or organizational chart."
+                    },
+                    {
+                        title: "Binary Trees and Traversals",
+                        content: "Binary trees have at most two children per node. Traversal methods include in-order, pre-order, and post-order.",
+                        example: "In-order traversal of a binary search tree gives elements in sorted order."
+                    },
+                    {
+                        title: "Binary Search Trees",
+                        content: "BSTs are binary trees where for each node, all left descendants are smaller and all right descendants are larger.",
+                        example: "Like a phone book where names are organized for quick lookup."
+                    },
+                    {
+                        title: "Binary Heaps and Priority Queues",
+                        content: "Binary heaps are complete binary trees that satisfy the heap property. They're used to implement priority queues.",
+                        example: "In a max-heap, the parent is always greater than or equal to its children."
+                    },
+                    {
+                        title: "Graph Representation and DFS",
+                        content: "Graphs can be represented using adjacency matrices or adjacency lists. Depth-First Search (DFS) explores as far as possible along each branch before backtracking.",
+                        example: "DFS is like exploring a maze by always taking the leftmost path until you hit a dead end."
+                    }
+                ],
+                quiz: [
+                    {
+                        question: "Which traversal visits root, left subtree, then right subtree?",
+                        options: ["In-order", "Pre-order", "Post-order", "Level-order"],
+                        answer: 1
+                    },
+                    {
+                        question: "In a Binary Search Tree, where would you find the smallest element?",
+                        options: ["Root", "Rightmost node", "Leftmost node", "Any leaf node"],
+                        answer: 2
+                    },
+                    {
+                        question: "Which graph traversal uses a stack?",
+                        options: ["BFS", "DFS", "Dijkstra", "Prim"],
+                        answer: 1
+                    }
+                ]
             }
         };
 
-        // ... your existing MCQ and exam questions data
+        // MCQ Questions data
+        const mcqQuestions = {
+            "1": [
+                {
+                    question: "Which data structure follows the FIFO principle?",
+                    options: ["Stack", "Queue", "Tree", "Graph"],
+                    answer: 1,
+                    explanation: "Queue follows FIFO (First In First Out) principle where the first element added is the first one to be removed."
+                },
+                {
+                    question: "What is the time complexity of inserting an element at the beginning of an array?",
+                    options: ["O(1)", "O(n)", "O(log n)", "O(n²)"],
+                    answer: 1,
+                    explanation: "Inserting at the beginning of an array requires shifting all existing elements, which takes O(n) time."
+                },
+                {
+                    question: "Which of the following is NOT a linear data structure?",
+                    options: ["Array", "Linked List", "Stack", "Tree"],
+                    answer: 3,
+                    explanation: "Tree is a hierarchical data structure, not a linear one like arrays, linked lists, and stacks."
+                }
+            ],
+            "2": [
+                {
+                    question: "Explain the difference between array and linked list with two points each.",
+                    options: [
+                        "Arrays have fixed size, Linked lists are dynamic; Arrays allow random access, Linked lists require sequential access",
+                        "Arrays are faster, Linked lists are slower; Arrays use more memory, Linked lists use less memory",
+                        "Arrays support binary search, Linked lists support linear search; Arrays are linear, Linked lists are hierarchical",
+                        "Arrays store homogeneous data, Linked lists store heterogeneous data; Arrays are in RAM, Linked lists are in cache"
+                    ],
+                    answer: 0,
+                    explanation: "Arrays have fixed size while linked lists can grow dynamically. Arrays allow direct access to any element (random access) while linked lists require traversing from the beginning (sequential access)."
+                },
+                {
+                    question: "What are the advantages of circular queue over linear queue?",
+                    options: [
+                        "Efficient memory utilization, No wastage of space",
+                        "Faster insertion and deletion, Better cache performance",
+                        "Supports random access, Allows binary search",
+                        "Automatic sorting, Built-in priority system"
+                    ],
+                    answer: 0,
+                    explanation: "Circular queues efficiently utilize memory by reusing the empty spaces created after dequeuing elements, unlike linear queues where space gets wasted."
+                },
+                {
+                    question: "What is the time complexity of searching in a balanced Binary Search Tree?",
+                    options: ["O(1)", "O(n)", "O(log n)", "O(n log n)"],
+                    answer: 2,
+                    explanation: "In a balanced BST, the height is O(log n), so search operations take O(log n) time."
+                }
+            ],
+            "3": [
+                {
+                    question: "Explain the process of converting infix expression to postfix expression using stack with example.",
+                    options: [
+                        "Scan expression left to right, push operators to stack based on precedence, pop to output when higher precedence operator is encountered",
+                        "Scan expression right to left, push operands to stack, pop when operator is found",
+                        "Convert to binary first, then rearrange operators",
+                        "Use two stacks - one for operators and one for operands"
+                    ],
+                    answer: 0,
+                    explanation: "The algorithm scans the infix expression from left to right. Operands go directly to output. Operators are pushed to stack based on precedence. When a higher precedence operator is encountered, lower precedence operators are popped from stack to output."
+                },
+                {
+                    question: "Differentiate between singly linked list and doubly linked list with advantages of each.",
+                    options: [
+                        "Singly: Less memory, One direction traversal; Doubly: More memory, Bidirectional traversal",
+                        "Singly: Faster insertion, Random access; Doubly: Slower deletion, Sequential access",
+                        "Singly: Fixed size, Static allocation; Doubly: Dynamic size, Heap allocation",
+                        "Singly: Supports sorting, Automatic garbage collection; Doubly: No sorting, Manual memory management"
+                    ],
+                    answer: 0,
+                    explanation: "Singly linked lists use less memory (one pointer per node) but only allow forward traversal. Doubly linked lists use more memory (two pointers per node) but allow both forward and backward traversal."
+                },
+                {
+                    question: "Explain the Depth First Search algorithm for graph traversal.",
+                    options: [
+                        "Uses stack, explores as far as possible along each branch before backtracking",
+                        "Uses queue, explores all neighbors at current depth before moving to next level",
+                        "Uses priority queue, explores nodes with highest priority first",
+                        "Uses hash table, explores nodes in random order"
+                    ],
+                    answer: 0,
+                    explanation: "DFS uses a stack (or recursion) to explore as far as possible along each branch before backtracking. It goes deep into the graph before exploring wide."
+                }
+            ],
+            "4": [
+                {
+                    question: "Explain Binary Search Tree operations (insertion, deletion, search) with time complexities.",
+                    options: [
+                        "Search: O(h), Insert: O(h), Delete: O(h) where h is height of tree",
+                        "Search: O(n), Insert: O(n), Delete: O(n) for all cases",
+                        "Search: O(1), Insert: O(log n), Delete: O(log n) for balanced trees",
+                        "Search: O(log n), Insert: O(n), Delete: O(n²) in worst case"
+                    ],
+                    answer: 0,
+                    explanation: "In BST, search, insertion and deletion all take O(h) time where h is the height of the tree. For balanced BST, h = O(log n), giving O(log n) time for these operations."
+                },
+                {
+                    question: "Compare and contrast BFS and DFS algorithms for graph traversal.",
+                    options: [
+                        "BFS: Uses queue, Level-order traversal; DFS: Uses stack, Explores depth first",
+                        "BFS: Recursive implementation; DFS: Iterative implementation",
+                        "BFS: Better for sparse graphs; DFS: Better for dense graphs",
+                        "BFS: Finds shortest path; DFS: Uses less memory"
+                    ],
+                    answer: 0,
+                    explanation: "BFS uses a queue and traverses level by level. DFS uses a stack (or recursion) and explores as far as possible along each branch before backtracking. BFS finds the shortest path in unweighted graphs, while DFS uses less memory for deep graphs."
+                },
+                {
+                    question: "Explain different memory allocation schemes (First-fit, Best-fit, Worst-fit) with examples.",
+                    options: [
+                        "First-fit: First adequate block; Best-fit: Smallest adequate block; Worst-fit: Largest adequate block",
+                        "First-fit: Random block; Best-fit: Exact size block; Worst-fit: Any available block",
+                        "First-fit: Largest block; Best-fit: First block; Worst-fit: Last block",
+                        "First-fit: Fastest; Best-fit: Most efficient; Worst-fit: Least fragmentation"
+                    ],
+                    answer: 0,
+                    explanation: "First-fit allocates the first adequate block found. Best-fit finds the smallest adequate block to minimize wasted space. Worst-fit finds the largest adequate block to leave large fragments for future allocations."
+                }
+            ]
+        };
+
+        // Exam questions data with detailed answers
+        const examQuestions = {
+            1: [
+                {
+                    question: "Explain the concept of data abstraction with an example.",
+                    marks: 3,
+                    answer: `
+                        <p><strong>Data Abstraction</strong> is the process of hiding the implementation details and showing only the essential features of a data structure. It separates the "what" from the "how".</p>
+                        
+                        <p><strong>Key Points:</strong></p>
+                        <ul>
+                            <li>Hides complex implementation details</li>
+                            <li>Shows only essential operations</li>
+                            <li>Provides a clear interface</li>
+                            <li>Makes code more maintainable</li>
+                        </ul>
+                        
+                        <p><strong>Example:</strong> Stack ADT (Abstract Data Type)</p>
+                        <div class="code-block">
+                            // Interface (what we can do)<br>
+                            push(element) - Add element to top<br>
+                            pop() - Remove and return top element<br>
+                            peek() - View top element<br>
+                            isEmpty() - Check if stack is empty<br>
+                            <br>
+                            // Implementation details are hidden<br>
+                            // Could be implemented using array or linked list
+                        </div>
+                        
+                        <p>Users don't need to know if the stack uses an array or linked list internally. They only need to know the operations available.</p>
+                    `
+                },
+                {
+                    question: "Compare and contrast arrays and linked lists.",
+                    marks: 3,
+                    answer: `
+                        <p><strong>Arrays vs Linked Lists:</strong></p>
+                        
+                        <table style="width:100%; border-collapse: collapse; margin: 1rem 0;">
+                            <tr style="background: #f8f9fa;">
+                                <th style="padding: 10px; border: 1px solid #ddd;">Aspect</th>
+                                <th style="padding: 10px; border: 1px solid #ddd;">Array</th>
+                                <th style="padding: 10px; border: 1px solid #ddd;">Linked List</th>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Memory Allocation</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Contiguous memory</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Non-contiguous memory</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Size</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Fixed size</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Dynamic size</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Access</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Random access (O(1))</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Sequential access (O(n))</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Insertion/Deletion</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Costly (O(n))</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Efficient (O(1)) at known position</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Memory Usage</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">No extra memory</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Extra memory for pointers</td>
+                            </tr>
+                        </table>
+                        
+                        <p><strong>When to use:</strong></p>
+                        <ul>
+                            <li><strong>Array:</strong> When random access is needed frequently, size is fixed</li>
+                            <li><strong>Linked List:</strong> When frequent insertions/deletions are needed, size is unknown</li>
+                        </ul>
+                    `
+                },
+                {
+                    question: "Convert the infix expression (A + B) * C to postfix notation.",
+                    marks: 3,
+                    answer: `
+                        <p><strong>Step-by-step conversion:</strong></p>
+                        
+                        <p><strong>Infix:</strong> (A + B) * C</p>
+                        
+                        <p><strong>Conversion Process:</strong></p>
+                        <ol>
+                            <li>Scan expression from left to right</li>
+                            <li>Initialize empty stack for operators</li>
+                            <li>Output: A</li>
+                            <li>Push '(' to stack</li>
+                            <li>Output: A B</li>
+                            <li>Push '+' to stack</li>
+                            <li>Encounter ')', pop operators until '(': pop '+' → Output: A B +</li>
+                            <li>Pop '('</li>
+                            <li>Push '*' to stack</li>
+                            <li>Output: A B + C</li>
+                            <li>End of expression, pop remaining operators: pop '*' → Output: A B + C *</li>
+                        </ol>
+                        
+                        <p><strong>Postfix:</strong> A B + C *</p>
+                        
+                        <div class="code-block">
+                            // Algorithm for infix to postfix conversion:<br>
+                            1. Initialize empty stack<br>
+                            2. Scan infix expression left to right<br>
+                            3. If operand, add to output<br>
+                            4. If '(', push to stack<br>
+                            5. If ')', pop from stack to output until '('<br>
+                            6. If operator, pop operators with higher or equal precedence<br>
+                            7. Push current operator to stack<br>
+                            8. At end, pop all remaining operators
+                        </div>
+                    `
+                },
+                {
+                    question: "Explain time and space complexity with examples.",
+                    marks: 3,
+                    answer: `
+                        <p><strong>Time Complexity:</strong> Measures how runtime grows with input size</p>
+                        <p><strong>Space Complexity:</strong> Measures how memory usage grows with input size</p>
+                        
+                        <p><strong>Common Time Complexities:</strong></p>
+                        <ul>
+                            <li><strong>O(1) - Constant:</strong> Accessing array element by index</li>
+                            <li><strong>O(log n) - Logarithmic:</strong> Binary search</li>
+                            <li><strong>O(n) - Linear:</strong> Linear search, traversing array</li>
+                            <li><strong>O(n log n) - Linearithmic:</strong> Merge sort, Quick sort</li>
+                            <li><strong>O(n²) - Quadratic:</strong> Bubble sort, Selection sort</li>
+                            <li><strong>O(2ⁿ) - Exponential:</strong> Tower of Hanoi</li>
+                        </ul>
+                        
+                        <p><strong>Examples:</strong></p>
+                        <div class="code-block">
+                            // O(1) - Constant time<br>
+                            int getFirstElement(int[] arr) {<br>
+                            &nbsp;&nbsp;return arr[0];<br>
+                            }<br>
+                            <br>
+                            // O(n) - Linear time<br>
+                            int findElement(int[] arr, int target) {<br>
+                            &nbsp;&nbsp;for(int i=0; i<arr.length; i++) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;if(arr[i] == target) return i;<br>
+                            &nbsp;&nbsp;}<br>
+                            &nbsp;&nbsp;return -1;<br>
+                            }<br>
+                            <br>
+                            // O(n²) - Quadratic time<br>
+                            void bubbleSort(int[] arr) {<br>
+                            &nbsp;&nbsp;for(int i=0; i<arr.length; i++) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;for(int j=0; j<arr.length-1; j++) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(arr[j] > arr[j+1]) swap(arr, j, j+1);<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                            &nbsp;&nbsp;}<br>
+                            }
+                        </div>
+                        
+                        <p><strong>Space Complexity Examples:</strong></p>
+                        <ul>
+                            <li><strong>O(1):</strong> Algorithms using fixed amount of extra space</li>
+                            <li><strong>O(n):</strong> Algorithms creating copy of input array</li>
+                            <li><strong>O(n²):</strong> Algorithms creating 2D array based on input size</li>
+                        </ul>
+                    `
+                }
+            ],
+            2: [
+                {
+                    question: "Write an algorithm to reverse a singly linked list.",
+                    marks: 3,
+                    answer: `
+                        <p><strong>Algorithm to Reverse Singly Linked List:</strong></p>
+                        
+                        <div class="code-block">
+                            // Node structure<br>
+                            class Node {<br>
+                            &nbsp;&nbsp;int data;<br>
+                            &nbsp;&nbsp;Node next;<br>
+                            &nbsp;&nbsp;Node(int data) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;this.data = data;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;this.next = null;<br>
+                            &nbsp;&nbsp;}<br>
+                            }<br>
+                            <br>
+                            // Iterative approach<br>
+                            Node reverseLinkedList(Node head) {<br>
+                            &nbsp;&nbsp;Node prev = null;<br>
+                            &nbsp;&nbsp;Node current = head;<br>
+                            &nbsp;&nbsp;Node next = null;<br>
+                            <br>
+                            &nbsp;&nbsp;while (current != null) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;next = current.next;  // Store next node<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;current.next = prev;  // Reverse current node's pointer<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;prev = current;       // Move prev to current<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;current = next;       // Move to next node<br>
+                            &nbsp;&nbsp;}<br>
+                            &nbsp;&nbsp;return prev;  // New head<br>
+                            }
+                        </div>
+                        
+                        <p><strong>Step-by-step explanation:</strong></p>
+                        <ol>
+                            <li>Initialize three pointers: prev = null, current = head, next = null</li>
+                            <li>Traverse through the list:</li>
+                            <ul>
+                                <li>Store the next node (next = current.next)</li>
+                                <li>Reverse the current node's pointer (current.next = prev)</li>
+                                <li>Move prev to current</li>
+                                <li>Move current to next</li>
+                            </ul>
+                            <li>When current becomes null, prev is the new head</li>
+                        </ol>
+                        
+                        <p><strong>Example:</strong></p>
+                        <p>Original: 1 → 2 → 3 → 4 → null</p>
+                        <p>Reversed: 4 → 3 → 2 → 1 → null</p>
+                        
+                        <p><strong>Time Complexity:</strong> O(n)</p>
+                        <p><strong>Space Complexity:</strong> O(1)</p>
+                    `
+                },
+                {
+                    question: "Differentiate between first-fit, best-fit, and worst-fit memory allocation schemes.",
+                    marks: 3,
+                    answer: `
+                        <p><strong>Memory Allocation Schemes:</strong></p>
+                        
+                        <table style="width:100%; border-collapse: collapse; margin: 1rem 0;">
+                            <tr style="background: #f8f9fa;">
+                                <th style="padding: 10px; border: 1px solid #ddd;">Scheme</th>
+                                <th style="padding: 10px; border: 1px solid #ddd;">Description</th>
+                                <th style="padding: 10px; border: 1px solid #ddd;">Advantages</th>
+                                <th style="padding: 10px; border: 1px solid #ddd;">Disadvantages</th>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #ddd;"><strong>First-fit</strong></td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Allocates the first available block that is large enough</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Fastest, minimal searching</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">May create external fragmentation</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #ddd;"><strong>Best-fit</strong></td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Allocates the smallest adequate block</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Minimizes wasted space</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Slow, may create small unusable fragments</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #ddd;"><strong>Worst-fit</strong></td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Allocates the largest available block</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Reduces small fragments</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Slow, may not leave large enough blocks</td>
+                            </tr>
+                        </table>
+                        
+                        <p><strong>Example:</strong></p>
+                        <p>Memory blocks: [10KB, 30KB, 20KB, 15KB]</p>
+                        <p>Request: 12KB</p>
+                        <ul>
+                            <li><strong>First-fit:</strong> Allocate 30KB block (first adequate)</li>
+                            <li><strong>Best-fit:</strong> Allocate 15KB block (smallest adequate)</li>
+                            <li><strong>Worst-fit:</strong> Allocate 30KB block (largest available)</li>
+                        </ul>
+                        
+                        <p><strong>Performance Comparison:</strong></p>
+                        <ul>
+                            <li><strong>Speed:</strong> First-fit > Best-fit ≈ Worst-fit</li>
+                            <li><strong>Memory Utilization:</strong> Best-fit > First-fit > Worst-fit</li>
+                            <li><strong>Fragmentation:</strong> Best-fit creates smallest fragments</li>
+                        </ul>
+                    `
+                },
+                {
+                    question: "Explain garbage collection and compaction in memory management.",
+                    marks: 3,
+                    answer: `
+                        <p><strong>Garbage Collection:</strong></p>
+                        <p>Automatic memory management technique that reclaims memory occupied by objects that are no longer in use by the program.</p>
+                        
+                        <p><strong>How it works:</strong></p>
+                        <ol>
+                            <li><strong>Mark:</strong> Identify which objects are still in use</li>
+                            <li><strong>Sweep:</strong> Reclaim memory from unused objects</li>
+                        </ol>
+                        
+                        <p><strong>Types of Garbage Collectors:</strong></p>
+                        <ul>
+                            <li><strong>Reference Counting:</strong> Counts references to each object</li>
+                            <li><strong>Mark and Sweep:</strong> Marks reachable objects, sweeps unreachable ones</li>
+                            <li><strong>Generational:</strong> Divides objects by age for efficient collection</li>
+                        </ul>
+                        
+                        <p><strong>Memory Compaction:</strong></p>
+                        <p>Process of moving allocated objects together to eliminate fragmentation and create larger contiguous free blocks.</p>
+                        
+                        <p><strong>Compaction Process:</strong></p>
+                        <ol>
+                            <li>Relocate all live objects to one end of memory</li>
+                            <li>Update all references to moved objects</li>
+                            <li>Create a single large free block</li>
+                        </ol>
+                        
+                        <div class="code-block">
+                            // Before compaction:<br>
+                            [Object A][Free][Object B][Free][Object C][Free]<br>
+                            <br>
+                            // After compaction:<br>
+                            [Object A][Object B][Object C][Large Free Block]
+                        </div>
+                        
+                        <p><strong>Advantages of Compaction:</strong></p>
+                        <ul>
+                            <li>Reduces external fragmentation</li>
+                            <li>Improves memory utilization</li>
+                            <li>Enables larger allocations</li>
+                        </ul>
+                        
+                        <p><strong>Disadvantages:</strong></p>
+                        <ul>
+                            <li>Overhead of moving objects and updating references</li>
+                            <li>May cause performance issues during compaction</li>
+                        </ul>
+                        
+                        <p><strong>Real-world example:</strong> Java Virtual Machine (JVM) uses generational garbage collection with compaction.</p>
+                    `
+                },
+                {
+                    question: "Implement a stack using a linked list with push and pop operations.",
+                    marks: 3,
+                    answer: `
+                        <p><strong>Stack Implementation using Linked List:</strong></p>
+                        
+                        <div class="code-block">
+                            // Node class<br>
+                            class StackNode {<br>
+                            &nbsp;&nbsp;int data;<br>
+                            &nbsp;&nbsp;StackNode next;<br>
+                            &nbsp;&nbsp;StackNode(int data) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;this.data = data;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;this.next = null;<br>
+                            &nbsp;&nbsp;}<br>
+                            }<br>
+                            <br>
+                            // Stack class<br>
+                            class Stack {<br>
+                            &nbsp;&nbsp;private StackNode top;<br>
+                            <br>
+                            &nbsp;&nbsp;public Stack() {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;this.top = null;<br>
+                            &nbsp;&nbsp;}<br>
+                            <br>
+                            &nbsp;&nbsp;// Push operation<br>
+                            &nbsp;&nbsp;public void push(int data) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;StackNode newNode = new StackNode(data);<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;newNode.next = top;  // New node points to current top<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;top = newNode;       // Update top to new node<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;System.out.println(data + " pushed to stack");<br>
+                            &nbsp;&nbsp;}<br>
+                            <br>
+                            &nbsp;&nbsp;// Pop operation<br>
+                            &nbsp;&nbsp;public int pop() {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;if (isEmpty()) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Stack Underflow");<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return -1;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;int popped = top.data;  // Store data to return<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;top = top.next;        // Move top to next node<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;return popped;<br>
+                            &nbsp;&nbsp;}<br>
+                            <br>
+                            &nbsp;&nbsp;// Peek operation<br>
+                            &nbsp;&nbsp;public int peek() {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;if (isEmpty()) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Stack is empty");<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return -1;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;return top.data;<br>
+                            &nbsp;&nbsp;}<br>
+                            <br>
+                            &nbsp;&nbsp;// Check if stack is empty<br>
+                            &nbsp;&nbsp;public boolean isEmpty() {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;return top == null;<br>
+                            &nbsp;&nbsp;}<br>
+                            }
+                        </div>
+                        
+                        <p><strong>Operations Explanation:</strong></p>
+                        <ul>
+                            <li><strong>Push:</strong> Add new node at the beginning (head) of the list</li>
+                            <li><strong>Pop:</strong> Remove node from the beginning (head) of the list</li>
+                            <li><strong>Peek:</strong> Return data from top node without removing</li>
+                            <li><strong>isEmpty:</strong> Check if top is null</li>
+                        </ul>
+                        
+                        <p><strong>Time Complexities:</strong></p>
+                        <ul>
+                            <li>Push: O(1)</li>
+                            <li>Pop: O(1)</li>
+                            <li>Peek: O(1)</li>
+                            <li>isEmpty: O(1)</li>
+                        </ul>
+                        
+                        <p><strong>Advantages over array implementation:</strong></p>
+                        <ul>
+                            <li>Dynamic size (no fixed capacity)</li>
+                            <li>No need to pre-allocate memory</li>
+                            <li>Efficient memory usage</li>
+                        </ul>
+                    `
+                }
+            ],
+            3: [
+                {
+                    question: "Explain different tree traversal methods with examples.",
+                    marks: 3,
+                    answer: `
+                        <p><strong>Tree Traversal Methods:</strong></p>
+                        <p>Tree traversal means visiting all nodes in a tree in a specific order.</p>
+                        
+                        <p><strong>1. Depth-First Traversals:</strong></p>
+                        <ul>
+                            <li><strong>In-order (Left-Root-Right):</strong></li>
+                            <ul>
+                                <li>Traverse left subtree</li>
+                                <li>Visit root</li>
+                                <li>Traverse right subtree</li>
+                                <li><em>For BST: Returns nodes in sorted order</em></li>
+                            </ul>
+                            
+                            <li><strong>Pre-order (Root-Left-Right):</strong></li>
+                            <ul>
+                                <li>Visit root</li>
+                                <li>Traverse left subtree</li>
+                                <li>Traverse right subtree</li>
+                                <li><em>Used to create copy of tree</em></li>
+                            </ul>
+                            
+                            <li><strong>Post-order (Left-Right-Root):</strong></li>
+                            <ul>
+                                <li>Traverse left subtree</li>
+                                <li>Traverse right subtree</li>
+                                <li>Visit root</li>
+                                <li><em>Used to delete tree</em></li>
+                            </ul>
+                        </ul>
+                        
+                        <p><strong>2. Breadth-First Traversal (Level-order):</strong></p>
+                        <ul>
+                            <li>Visit nodes level by level</li>
+                            <li>Uses queue data structure</li>
+                            <li><em>Used to find shortest path</em></li>
+                        </ul>
+                        
+                        <p><strong>Example Tree:</strong></p>
+                        <div class="code-block">
+                            &nbsp;&nbsp;&nbsp;&nbsp;1<br>
+                            &nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;\\<br>
+                            &nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3<br>
+                            &nbsp;/&nbsp;\\&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;\\<br>
+                            4&nbsp;&nbsp;&nbsp;5&nbsp;6&nbsp;&nbsp;&nbsp;7
+                        </div>
+                        
+                        <p><strong>Traversal Results:</strong></p>
+                        <ul>
+                            <li><strong>In-order:</strong> 4, 2, 5, 1, 6, 3, 7</li>
+                            <li><strong>Pre-order:</strong> 1, 2, 4, 5, 3, 6, 7</li>
+                            <li><strong>Post-order:</strong> 4, 5, 2, 6, 7, 3, 1</li>
+                            <li><strong>Level-order:</strong> 1, 2, 3, 4, 5, 6, 7</li>
+                        </ul>
+                        
+                        <div class="code-block">
+                            // In-order traversal (Recursive)<br>
+                            void inOrder(Node root) {<br>
+                            &nbsp;&nbsp;if (root != null) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;inOrder(root.left);<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;System.out.print(root.data + " ");<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;inOrder(root.right);<br>
+                            &nbsp;&nbsp;}<br>
+                            }
+                        </div>
+                        
+                        <p><strong>Time Complexity:</strong> O(n) for all traversals</p>
+                        <p><strong>Space Complexity:</strong> O(h) for DFS, O(w) for BFS (where h = height, w = maximum width)</p>
+                    `
+                },
+                {
+                    question: "Write an algorithm to insert a node in a Binary Search Tree.",
+                    marks: 3,
+                    answer: `
+                        <p><strong>BST Insertion Algorithm:</strong></p>
+                        
+                        <div class="code-block">
+                            // Node structure<br>
+                            class TreeNode {<br>
+                            &nbsp;&nbsp;int data;<br>
+                            &nbsp;&nbsp;TreeNode left, right;<br>
+                            &nbsp;&nbsp;TreeNode(int value) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;data = value;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;left = right = null;<br>
+                            &nbsp;&nbsp;}<br>
+                            }<br>
+                            <br>
+                            // Recursive insertion<br>
+                            TreeNode insert(TreeNode root, int value) {<br>
+                            &nbsp;&nbsp;// If tree is empty, create new node<br>
+                            &nbsp;&nbsp;if (root == null) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;root = new TreeNode(value);<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;return root;<br>
+                            &nbsp;&nbsp;}<br>
+                            <br>
+                            &nbsp;&nbsp;// Otherwise, recur down the tree<br>
+                            &nbsp;&nbsp;if (value < root.data) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;root.left = insert(root.left, value);<br>
+                            &nbsp;&nbsp;} else if (value > root.data) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;root.right = insert(root.right, value);<br>
+                            &nbsp;&nbsp;}<br>
+                            <br>
+                            &nbsp;&nbsp;// Return the unchanged root<br>
+                            &nbsp;&nbsp;return root;<br>
+                            }
+                        </div>
+                        
+                        <p><strong>Iterative Approach:</strong></p>
+                        <div class="code-block">
+                            TreeNode insertIterative(TreeNode root, int value) {<br>
+                            &nbsp;&nbsp;TreeNode newNode = new TreeNode(value);<br>
+                            &nbsp;&nbsp;if (root == null) return newNode;<br>
+                            <br>
+                            &nbsp;&nbsp;TreeNode current = root;<br>
+                            &nbsp;&nbsp;TreeNode parent = null;<br>
+                            <br>
+                            &nbsp;&nbsp;while (current != null) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;parent = current;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;if (value < current.data) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;current = current.left;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;} else if (value > current.data) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;current = current.right;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;} else {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Value already exists<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return root;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                            &nbsp;&nbsp;}<br>
+                            <br>
+                            &nbsp;&nbsp;// Insert the new node<br>
+                            &nbsp;&nbsp;if (value < parent.data) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;parent.left = newNode;<br>
+                            &nbsp;&nbsp;} else {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;parent.right = newNode;<br>
+                            &nbsp;&nbsp;}<br>
+                            <br>
+                            &nbsp;&nbsp;return root;<br>
+                            }
+                        </div>
+                        
+                        <p><strong>Step-by-step Example:</strong></p>
+                        <p>Insert values: 50, 30, 70, 20, 40, 60, 80</p>
+                        <ol>
+                            <li>Insert 50: Root = 50</li>
+                            <li>Insert 30: 30 < 50 → Go left, insert as left child</li>
+                            <li>Insert 70: 70 > 50 → Go right, insert as right child</li>
+                            <li>Insert 20: 20 < 50 → Go left, 20 < 30 → Go left, insert as left child of 30</li>
+                            <li>Insert 40: 40 < 50 → Go left, 40 > 30 → Go right, insert as right child of 30</li>
+                            <li>Insert 60: 60 > 50 → Go right, 60 < 70 → Go left, insert as left child of 70</li>
+                            <li>Insert 80: 80 > 50 → Go right, 80 > 70 → Go right, insert as right child of 70</li>
+                        </ol>
+                        
+                        <p><strong>Final BST:</strong></p>
+                        <div class="code-block">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;50<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\\<br>
+                            &nbsp;&nbsp;&nbsp;30&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;70<br>
+                            &nbsp;&nbsp;/&nbsp;&nbsp;\\&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;\\<br>
+                            &nbsp;20&nbsp;&nbsp;&nbsp;40&nbsp;60&nbsp;&nbsp;&nbsp;80
+                        </div>
+                        
+                        <p><strong>Time Complexity:</strong> O(h) where h is height of tree</p>
+                        <p><strong>Space Complexity:</strong> O(h) for recursive, O(1) for iterative</p>
+                    `
+                },
+                {
+                    question: "Differentiate between binary trees and binary search trees.",
+                    marks: 3,
+                    answer: `
+                        <p><strong>Binary Tree vs Binary Search Tree:</strong></p>
+                        
+                        <table style="width:100%; border-collapse: collapse; margin: 1rem 0;">
+                            <tr style="background: #f8f9fa;">
+                                <th style="padding: 10px; border: 1px solid #ddd;">Aspect</th>
+                                <th style="padding: 10px; border: 1px solid #ddd;">Binary Tree</th>
+                                <th style="padding: 10px; border: 1px solid #ddd;">Binary Search Tree</th>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #ddd;"><strong>Definition</strong></td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Tree with at most 2 children per node</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Binary tree with ordering property</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #ddd;"><strong>Ordering</strong></td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">No specific ordering</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Left child < Parent < Right child</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #ddd;"><strong>Search Efficiency</strong></td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">O(n) - Linear search</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">O(h) - Binary search (h = height)</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #ddd;"><strong>Operations</strong></td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Basic tree operations</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Search, Insert, Delete with ordering</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #ddd;"><strong>Use Cases</strong></td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Expression trees, Huffman coding</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Dictionary, Database indexing</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #ddd;"><strong>In-order Traversal</strong></td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Random order</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Sorted order</td>
+                            </tr>
+                        </table>
+                        
+                        <p><strong>Binary Tree Examples:</strong></p>
+                        <div class="code-block">
+                            // Valid Binary Tree (but not BST)<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;10<br>
+                            &nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;\\<br>
+                            &nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15<br>
+                            &nbsp;/&nbsp;\\&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;\\<br>
+                            20&nbsp;&nbsp;&nbsp;3&nbsp;12&nbsp;&nbsp;&nbsp;8
+                        </div>
+                        <p><em>Note: 20 > 5 (violates BST property)</em></p>
+                        
+                        <p><strong>Binary Search Tree Examples:</strong></p>
+                        <div class="code-block">
+                            // Valid BST<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;10<br>
+                            &nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;\\<br>
+                            &nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15<br>
+                            &nbsp;/&nbsp;\\&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;\\<br>
+                            3&nbsp;&nbsp;&nbsp;&nbsp;7&nbsp;12&nbsp;&nbsp;&nbsp;18
+                        </div>
+                        <p><em>All left descendants < parent < all right descendants</em></p>
+                        
+                        <p><strong>Key Properties:</strong></p>
+                        <ul>
+                            <li><strong>Binary Tree:</strong> Hierarchical structure with max 2 children per node</li>
+                            <li><strong>BST:</strong> Binary tree + ordering property for efficient searching</li>
+                            <li>All BSTs are binary trees, but not all binary trees are BSTs</li>
+                        </ul>
+                        
+                        <p><strong>Verification:</strong> To check if a binary tree is BST, verify that for every node:</p>
+                        <ul>
+                            <li>All values in left subtree are less than node's value</li>
+                            <li>All values in right subtree are greater than node's value</li>
+                        </ul>
+                    `
+                },
+                {
+                    question: "Explain Depth First Search algorithm for graphs.",
+                    marks: 3,
+                    answer: `
+                        <p><strong>Depth First Search (DFS) Algorithm:</strong></p>
+                        <p>DFS is a graph traversal algorithm that explores as far as possible along each branch before backtracking.</p>
+                        
+                        <p><strong>Algorithm Steps:</strong></p>
+                        <ol>
+                            <li>Start from a source vertex</li>
+                            <li>Mark it as visited</li>
+                            <li>Recursively visit all adjacent unvisited vertices</li>
+                            <li>Backtrack when no more unvisited adjacent vertices</li>
+                        </ol>
+                        
+                        <div class="code-block">
+                            // DFS using adjacency list<br>
+                            void DFS(int v, boolean[] visited, List<List<Integer>> adj) {<br>
+                            &nbsp;&nbsp;// Mark current node as visited<br>
+                            &nbsp;&nbsp;visited[v] = true;<br>
+                            &nbsp;&nbsp;System.out.print(v + " ");<br>
+                            <br>
+                            &nbsp;&nbsp;// Recur for all adjacent vertices<br>
+                            &nbsp;&nbsp;for (int neighbor : adj.get(v)) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;if (!visited[neighbor]) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DFS(neighbor, visited, adj);<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                            &nbsp;&nbsp;}<br>
+                            }<br>
+                            <br>
+                            // Main DFS function<br>
+                            void DFSTraversal(List<List<Integer>> adj, int vertices) {<br>
+                            &nbsp;&nbsp;boolean[] visited = new boolean[vertices];<br>
+                            &nbsp;&nbsp;Arrays.fill(visited, false);<br>
+                            <br>
+                            &nbsp;&nbsp;for (int i = 0; i < vertices; i++) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;if (!visited[i]) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DFS(i, visited, adj);<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                            &nbsp;&nbsp;}<br>
+                            }
+                        </div>
+                        
+                        <p><strong>Iterative DFS using Stack:</strong></p>
+                        <div class="code-block">
+                            void DFSIterative(int start, List<List<Integer>> adj, int vertices) {<br>
+                            &nbsp;&nbsp;boolean[] visited = new boolean[vertices];<br>
+                            &nbsp;&nbsp;Stack<Integer> stack = new Stack<>();<br>
+                            <br>
+                            &nbsp;&nbsp;stack.push(start);<br>
+                            &nbsp;&nbsp;visited[start] = true;<br>
+                            <br>
+                            &nbsp;&nbsp;while (!stack.isEmpty()) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;int current = stack.pop();<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;System.out.print(current + " ");<br>
+                            <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;// Push all unvisited neighbors<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;for (int neighbor : adj.get(current)) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (!visited[neighbor]) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;visited[neighbor] = true;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stack.push(neighbor);<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                            &nbsp;&nbsp;}<br>
+                            }
+                        </div>
+                        
+                        <p><strong>Example Graph:</strong></p>
+                        <div class="code-block">
+                            0 --- 1<br>
+                            | \\&nbsp;&nbsp;&nbsp;|<br>
+                            |  \\ |<br>
+                            3 --- 2<br>
+                            &nbsp;\\&nbsp;&nbsp;&nbsp;/<br>
+                            &nbsp;&nbsp;\\&nbsp;/<br>
+                            &nbsp;&nbsp;&nbsp;4
+                        </div>
+                        
+                        <p><strong>DFS Traversal (starting from 0):</strong></p>
+                        <ul>
+                            <li>Recursive: 0 → 1 → 2 → 3 → 4</li>
+                            <li>Iterative: 0 → 2 → 3 → 4 → 1 (depends on push order)</li>
+                        </ul>
+                        
+                        <p><strong>Time Complexity:</strong> O(V + E) where V = vertices, E = edges</p>
+                        <p><strong>Space Complexity:</strong> O(V) for recursion stack/visited array</p>
+                        
+                        <p><strong>Applications of DFS:</strong></p>
+                        <ul>
+                            <li>Path finding between two nodes</li>
+                            <li>Topological sorting</li>
+                            <li>Detecting cycles in graph</li>
+                            <li>Solving puzzles and mazes</li>
+                            <li>Finding connected components</li>
+                        </ul>
+                        
+                        <p><strong>DFS vs BFS:</strong></p>
+                        <ul>
+                            <li><strong>DFS:</strong> Uses stack, goes deep first, uses less memory</li>
+                            <li><strong>BFS:</strong> Uses queue, goes level by level, finds shortest path</li>
+                        </ul>
+                    `
+                }
+            ]
+        };
 
         // DOM elements
         const moduleSelection = document.getElementById('module-selection');
@@ -1076,7 +1816,6 @@
         const tabs = document.querySelectorAll('.tab');
         const tabContents = document.querySelectorAll('.tab-content');
         const examQuestionsContainer = document.getElementById('exam-questions-container');
-        const pdfResourcesContainer = document.getElementById('pdf-resources-container');
 
         // Event listeners for tabs
         tabs.forEach(tab => {
@@ -1101,8 +1840,6 @@
                     loadExamQuestions();
                 } else if (tabId === 'games') {
                     initializeGames();
-                } else if (tabId === 'resources') {
-                    loadPDFResources();
                 }
             });
         });
@@ -1115,73 +1852,7 @@
             });
         });
 
-        // Function to load PDF resources
-        function loadPDFResources() {
-            pdfResourcesContainer.innerHTML = '';
-            
-            for (const moduleId in pdfResources) {
-                const moduleResources = pdfResources[moduleId];
-                
-                const moduleHTML = `
-                    <div class="notes-section">
-                        <h3>Module ${moduleId} Resources</h3>
-                        <div class="resource-list">
-                `;
-                
-                moduleResources.forEach((resource, index) => {
-                    moduleHTML += `
-                        <div class="resource-item">
-                            <h4>${resource.name}</h4>
-                            <p>${resource.description}</p>
-                            <div>
-                                <button class="pdf-btn view-pdf-btn" data-module="${moduleId}" data-resource="${index}">View PDF</button>
-                                <a href="${resource.url}" class="pdf-btn pdf-btn-secondary" download="${resource.name}.pdf">Download PDF</a>
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                moduleHTML += `</div></div>`;
-                pdfResourcesContainer.innerHTML += moduleHTML;
-            }
-            
-            // Add event listeners to view PDF buttons
-            document.querySelectorAll('.view-pdf-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const moduleId = this.getAttribute('data-module');
-                    const resourceIndex = parseInt(this.getAttribute('data-resource'));
-                    openPdfViewer(pdfResources[moduleId][resourceIndex]);
-                });
-            });
-        }
-
-        // Function to open PDF viewer
-        function openPdfViewer(resource) {
-            const pdfModal = document.getElementById('pdf-modal');
-            const pdfIframe = document.getElementById('pdf-iframe');
-            const pdfTitle = document.getElementById('pdf-title');
-            
-            pdfTitle.textContent = resource.name;
-            pdfIframe.src = resource.url;
-            pdfModal.classList.remove('hidden');
-            
-            // Prevent body scrolling when modal is open
-            document.body.style.overflow = 'hidden';
-        }
-
-        // Function to close PDF viewer
-        function closePdfViewer() {
-            const pdfModal = document.getElementById('pdf-modal');
-            const pdfIframe = document.getElementById('pdf-iframe');
-            
-            pdfModal.classList.add('hidden');
-            pdfIframe.src = '';
-            
-            // Restore body scrolling
-            document.body.style.overflow = 'auto';
-        }
-
-        // Add PDF resources to module content
+        // Function to load module content
         function loadModuleContent(moduleId) {
             const module = modules[moduleId];
             
@@ -1195,7 +1866,7 @@
                 <div class="concepts-section">
             `;
             
-            // Add concepts (your existing code)
+            // Add concepts
             module.concepts.forEach((concept, index) => {
                 contentHTML += `
                     <div class="concept">
@@ -1210,31 +1881,7 @@
             
             contentHTML += `</div>`;
             
-            // Add PDF resources section to module content
-            if (pdfResources[moduleId]) {
-                contentHTML += `
-                    <div class="pdf-resources">
-                        <h3>PDF Resources for Module ${moduleId}</h3>
-                        <div class="resource-list">
-                `;
-                
-                pdfResources[moduleId].forEach((resource, index) => {
-                    contentHTML += `
-                        <div class="resource-item">
-                            <h4>${resource.name}</h4>
-                            <p>${resource.description}</p>
-                            <div>
-                                <button class="pdf-btn view-pdf-btn" data-module="${moduleId}" data-resource="${index}">View PDF</button>
-                                <a href="${resource.url}" class="pdf-btn pdf-btn-secondary" download="${resource.name}.pdf">Download PDF</a>
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                contentHTML += `</div></div>`;
-            }
-            
-            // Add quiz section (your existing code)
+            // Add quiz section
             contentHTML += `
                 <div class="quiz-section">
                     <h3>Test Your Knowledge</h3>
@@ -1264,7 +1911,7 @@
             </div>
             `;
             
-            // Add exam questions section (your existing code)
+            // Add exam questions section
             contentHTML += `
                 <div class="exam-questions">
                     <h3>Important Exam Questions</h3>
@@ -1289,18 +1936,7 @@
             moduleSelection.style.display = 'none';
             moduleContent.classList.add('active');
             
-            // Add event listeners to PDF buttons in module content
-            setTimeout(() => {
-                document.querySelectorAll('.view-pdf-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const moduleId = this.getAttribute('data-module');
-                        const resourceIndex = parseInt(this.getAttribute('data-resource'));
-                        openPdfViewer(pdfResources[moduleId][resourceIndex]);
-                    });
-                });
-            }, 100);
-            
-            // Add event listeners to quiz options (your existing code)
+            // Add event listeners to quiz options
             setTimeout(() => {
                 const options = document.querySelectorAll('.option');
                 options.forEach(option => {
@@ -1321,66 +1957,539 @@
             }, 100);
         }
 
-        // Add event listener for close PDF button
-        document.getElementById('close-pdf-btn').addEventListener('click', closePdfViewer);
-
-        // Add tab functionality for games
-        document.querySelectorAll('.tab-button').forEach(button => {
-            button.addEventListener('click', function() {
-                const tabId = this.dataset.tab;
-                
-                // Update tab buttons
-                document.querySelectorAll('.tab-button').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                this.classList.add('active');
-                
-                // Update tab content
-                document.querySelectorAll('.tab-pane').forEach(pane => {
-                    pane.classList.remove('active');
-                });
-                document.getElementById(`${tabId}-tab`).classList.add('active');
-            });
-        });
-
-        // Your existing functions remain the same
+        // Function to show module selection
         function showModuleSelection() {
             moduleContent.classList.remove('active');
             moduleSelection.style.display = 'block';
         }
 
+        // Function to check quiz answers
         function checkQuiz(moduleId) {
-            // Your existing implementation
+            const module = modules[moduleId];
+            const questions = document.querySelectorAll('.question');
+            let correctAnswers = 0;
+            
+            questions.forEach((question, index) => {
+                const selectedOption = question.querySelector('.option.selected');
+                if (selectedOption) {
+                    const selectedIndex = parseInt(selectedOption.getAttribute('data-option'));
+                    if (selectedIndex === module.quiz[index].answer) {
+                        correctAnswers++;
+                        selectedOption.style.backgroundColor = '#d4edda';
+                    } else {
+                        selectedOption.style.backgroundColor = '#f8d7da';
+                        // Highlight correct answer
+                        const correctOption = question.querySelector(`.option[data-option="${module.quiz[index].answer}"]`);
+                        correctOption.style.backgroundColor = '#d4edda';
+                    }
+                }
+            });
+            
+            const resultDiv = document.getElementById('quiz-result');
+            resultDiv.textContent = `You got ${correctAnswers} out of ${module.quiz.length} correct!`;
+            resultDiv.className = 'result';
+            resultDiv.classList.add(correctAnswers === module.quiz.length ? 'correct' : 'incorrect');
+            resultDiv.style.display = 'block';
+            
+            // Update progress bar
+            const progress = (correctAnswers / module.quiz.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
         }
 
+        // Function to load MCQ questions
         function loadMCQQuestions(markFilter) {
-            // Your existing implementation
+            const container = document.getElementById('mcq-container');
+            container.innerHTML = '';
+            
+            let questionsToShow = [];
+            
+            if (markFilter === 'all') {
+                // Show all questions from all mark categories
+                for (const mark in mcqQuestions) {
+                    questionsToShow = questionsToShow.concat(mcqQuestions[mark]);
+                }
+            } else {
+                // Show questions from specific mark category
+                questionsToShow = mcqQuestions[markFilter] || [];
+            }
+            
+            questionsToShow.forEach((q, index) => {
+                const questionHTML = `
+                    <div class="exam-question">
+                        <h4>Question ${index + 1} (${markFilter === 'all' ? 'Variable' : markFilter} mark${markFilter === '1' ? '' : 's'})</h4>
+                        <p>${q.question}</p>
+                        <div class="options" data-question="${index}">
+                `;
+                
+                q.options.forEach((option, optIndex) => {
+                    questionHTML += `
+                        <div class="option" data-option="${optIndex}">${String.fromCharCode(65 + optIndex)}. ${option}</div>
+                    `;
+                });
+                
+                questionHTML += `
+                        </div>
+                        <button class="submit-btn" onclick="checkMCQAnswer(${index}, ${q.answer}, '${markFilter}')">Check Answer</button>
+                        <div id="mcq-result-${index}" class="result" style="display: none;"></div>
+                    </div>
+                `;
+                
+                container.innerHTML += questionHTML;
+            });
+            
+            // Add event listeners to MCQ options
+            setTimeout(() => {
+                const options = document.querySelectorAll('#mcq-container .option');
+                options.forEach(option => {
+                    option.addEventListener('click', function() {
+                        const questionIndex = this.parentElement.getAttribute('data-question');
+                        
+                        // Remove selected class from all options in this question
+                        const siblings = this.parentElement.querySelectorAll('.option');
+                        siblings.forEach(sibling => {
+                            sibling.classList.remove('selected');
+                        });
+                        
+                        // Add selected class to clicked option
+                        this.classList.add('selected');
+                    });
+                });
+            }, 100);
         }
 
+        // Function to check MCQ answer
         function checkMCQAnswer(questionIndex, correctAnswer, markFilter) {
-            // Your existing implementation
+            const questionDiv = document.querySelectorAll('#mcq-container .exam-question')[questionIndex];
+            const selectedOption = questionDiv.querySelector('.option.selected');
+            const resultDiv = document.getElementById(`mcq-result-${questionIndex}`);
+            
+            if (!selectedOption) {
+                resultDiv.textContent = "Please select an answer first!";
+                resultDiv.className = 'result incorrect';
+                resultDiv.style.display = 'block';
+                return;
+            }
+            
+            const selectedIndex = parseInt(selectedOption.getAttribute('data-option'));
+            
+            // Find the question in the data
+            let questionData;
+            if (markFilter === 'all') {
+                // Search through all questions
+                for (const mark in mcqQuestions) {
+                    const found = mcqQuestions[mark].find((q, idx) => idx === questionIndex);
+                    if (found) {
+                        questionData = found;
+                        break;
+                    }
+                }
+            } else {
+                questionData = mcqQuestions[markFilter][questionIndex];
+            }
+            
+            if (selectedIndex === correctAnswer) {
+                resultDiv.textContent = "Correct! " + questionData.explanation;
+                resultDiv.className = 'result correct';
+                selectedOption.style.backgroundColor = '#d4edda';
+            } else {
+                resultDiv.textContent = "Incorrect. The correct answer is: " + questionData.explanation;
+                resultDiv.className = 'result incorrect';
+                selectedOption.style.backgroundColor = '#f8d7da';
+                
+                // Highlight correct answer
+                const correctOption = questionDiv.querySelector(`.option[data-option="${correctAnswer}"]`);
+                correctOption.style.backgroundColor = '#d4edda';
+            }
+            
+            resultDiv.style.display = 'block';
         }
 
+        // Function to load exam questions
         function loadExamQuestions() {
-            // Your existing implementation
+            examQuestionsContainer.innerHTML = '';
+            
+            for (const moduleId in examQuestions) {
+                const moduleQuestions = examQuestions[moduleId];
+                
+                const moduleHTML = `
+                    <div class="notes-section">
+                        <h3>Module ${moduleId} Questions</h3>
+                `;
+                
+                moduleQuestions.forEach((q, index) => {
+                    moduleHTML += `
+                        <div class="exam-question">
+                            <h4>Question ${index + 1} (${q.marks} marks)</h4>
+                            <p>${q.question}</p>
+                            <button class="answer-btn" onclick="toggleExamAnswer(${moduleId}, ${index})">Show Answer</button>
+                            <div class="answer-content" id="exam-answer-${moduleId}-${index}">
+                                ${q.answer}
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                moduleHTML += `</div>`;
+                examQuestionsContainer.innerHTML += moduleHTML;
+            }
         }
 
+        // Function to toggle answer visibility
         function toggleAnswer(moduleId, questionIndex) {
-            // Your existing implementation
+            const answerDiv = document.getElementById(`answer-${moduleId}-${questionIndex}`);
+            answerDiv.classList.toggle('show');
         }
 
         function toggleExamAnswer(moduleId, questionIndex) {
-            // Your existing implementation
+            const answerDiv = document.getElementById(`exam-answer-${moduleId}-${questionIndex}`);
+            answerDiv.classList.toggle('show');
         }
 
+        // Function to initialize games
         function initializeGames() {
-            // Your existing implementation
+            // Sorting Challenge Game
+            const startSortingBtn = document.getElementById('start-sorting');
+            const checkSortingBtn = document.getElementById('check-sorting');
+            const resetSortingBtn = document.getElementById('reset-sorting');
+            const sortableList = document.getElementById('sortable-list');
+            const sortingScore = document.getElementById('sorting-score');
+            const sortingTime = document.getElementById('sorting-time');
+            const sortingResult = document.getElementById('sorting-result');
+            
+            let sortingScoreValue = 0;
+            let sortingTimeLeft = 60;
+            let sortingInterval;
+            let currentElements = [];
+            
+            startSortingBtn.addEventListener('click', startSortingGame);
+            checkSortingBtn.addEventListener('click', checkSortingOrder);
+            resetSortingBtn.addEventListener('click', resetSortingGame);
+            
+            function startSortingGame() {
+                sortingScoreValue = 0;
+                sortingTimeLeft = 60;
+                sortingScore.textContent = sortingScoreValue;
+                sortingTime.textContent = sortingTimeLeft;
+                sortingResult.style.display = 'none';
+                
+                // Generate random elements for sorting
+                sortableList.innerHTML = '';
+                currentElements = generateRandomArray(8, 1, 50);
+                
+                currentElements.forEach((element, index) => {
+                    const elementDiv = document.createElement('div');
+                    elementDiv.className = 'sortable-item';
+                    elementDiv.textContent = element;
+                    elementDiv.setAttribute('data-value', element);
+                    elementDiv.setAttribute('draggable', 'true');
+                    
+                    // Add drag events
+                    elementDiv.addEventListener('dragstart', handleDragStart);
+                    elementDiv.addEventListener('dragover', handleDragOver);
+                    elementDiv.addEventListener('drop', handleDrop);
+                    elementDiv.addEventListener('dragend', handleDragEnd);
+                    
+                    sortableList.appendChild(elementDiv);
+                });
+                
+                // Start timer
+                sortingInterval = setInterval(() => {
+                    sortingTimeLeft--;
+                    sortingTime.textContent = sortingTimeLeft;
+                    
+                    if (sortingTimeLeft <= 0) {
+                        clearInterval(sortingInterval);
+                        sortingResult.textContent = "Time's up! Game over.";
+                        sortingResult.className = 'result incorrect';
+                        sortingResult.style.display = 'block';
+                    }
+                }, 1000);
+            }
+            
+            function checkSortingOrder() {
+                const items = Array.from(sortableList.querySelectorAll('.sortable-item'));
+                const currentOrder = items.map(item => parseInt(item.getAttribute('data-value')));
+                const sortedOrder = [...currentOrder].sort((a, b) => a - b);
+                
+                const isCorrect = JSON.stringify(currentOrder) === JSON.stringify(sortedOrder);
+                
+                if (isCorrect) {
+                    sortingScoreValue += 50;
+                    sortingScore.textContent = sortingScoreValue;
+                    sortingResult.textContent = "Correct! The elements are sorted in ascending order.";
+                    sortingResult.className = 'result correct';
+                    
+                    // Mark all items as correct
+                    items.forEach(item => {
+                        item.classList.add('correct');
+                    });
+                    
+                    clearInterval(sortingInterval);
+                } else {
+                    sortingResult.textContent = "Incorrect order. Try again!";
+                    sortingResult.className = 'result incorrect';
+                }
+                
+                sortingResult.style.display = 'block';
+            }
+            
+            function resetSortingGame() {
+                clearInterval(sortingInterval);
+                sortableList.innerHTML = '';
+                sortingScoreValue = 0;
+                sortingTimeLeft = 60;
+                sortingScore.textContent = sortingScoreValue;
+                sortingTime.textContent = sortingTimeLeft;
+                sortingResult.style.display = 'none';
+            }
+            
+            // Drag and drop functions for sorting game
+            let draggedItem = null;
+            
+            function handleDragStart(e) {
+                draggedItem = this;
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/html', this.innerHTML);
+                setTimeout(() => this.style.opacity = '0.4', 0);
+            }
+            
+            function handleDragOver(e) {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+                return false;
+            }
+            
+            function handleDrop(e) {
+                e.stopPropagation();
+                if (draggedItem !== this) {
+                    // Swap the elements
+                    const allItems = Array.from(sortableList.querySelectorAll('.sortable-item'));
+                    const draggedIndex = allItems.indexOf(draggedItem);
+                    const targetIndex = allItems.indexOf(this);
+                    
+                    if (draggedIndex < targetIndex) {
+                        sortableList.insertBefore(draggedItem, this.nextSibling);
+                    } else {
+                        sortableList.insertBefore(draggedItem, this);
+                    }
+                }
+                return false;
+            }
+            
+            function handleDragEnd(e) {
+                this.style.opacity = '1';
+            }
+            
+            // Binary Tree Builder Game
+            const insertValueBtn = document.getElementById('insert-value');
+            const clearTreeBtn = document.getElementById('clear-tree');
+            const treeValueInput = document.getElementById('tree-value');
+            const treeVisualization = document.getElementById('tree-visualization');
+            
+            let tree = null;
+            
+            insertValueBtn.addEventListener('click', insertValue);
+            clearTreeBtn.addEventListener('click', clearTree);
+            
+            function insertValue() {
+                const value = parseInt(treeValueInput.value);
+                if (isNaN(value)) {
+                    alert('Please enter a valid number');
+                    return;
+                }
+                
+                tree = insertIntoBST(tree, value);
+                visualizeTree(tree);
+                treeValueInput.value = '';
+            }
+            
+            function insertIntoBST(node, value) {
+                if (node === null) {
+                    return { value, left: null, right: null };
+                }
+                
+                if (value < node.value) {
+                    node.left = insertIntoBST(node.left, value);
+                } else if (value > node.value) {
+                    node.right = insertIntoBST(node.right, value);
+                }
+                
+                return node;
+            }
+            
+            function visualizeTree(node, container = treeVisualization) {
+                container.innerHTML = '';
+                
+                if (node === null) {
+                    container.innerHTML = '<p>Tree is empty. Insert values to build the tree.</p>';
+                    return;
+                }
+                
+                function buildTreeHTML(node) {
+                    if (node === null) return '';
+                    
+                    const leftHTML = buildTreeHTML(node.left);
+                    const rightHTML = buildTreeHTML(node.right);
+                    
+                    return `
+                        <div class="tree-node">
+                            <div class="node-value">${node.value}</div>
+                            <div class="tree-children">
+                                ${leftHTML}
+                                ${rightHTML}
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                container.innerHTML = buildTreeHTML(node);
+            }
+            
+            function clearTree() {
+                tree = null;
+                visualizeTree(tree);
+            }
+            
+            // Stack Operations Simulator
+            const pushStackBtn = document.getElementById('push-stack');
+            const popStackBtn = document.getElementById('pop-stack');
+            const clearStackBtn = document.getElementById('clear-stack');
+            const stackValueInput = document.getElementById('stack-value');
+            const stackContainer = document.getElementById('stack-container');
+            const stackResult = document.getElementById('stack-result');
+            
+            let stack = [];
+            
+            pushStackBtn.addEventListener('click', pushStack);
+            popStackBtn.addEventListener('click', popStack);
+            clearStackBtn.addEventListener('click', clearStack);
+            
+            function pushStack() {
+                const value = stackValueInput.value;
+                if (value === '') {
+                    stackResult.textContent = "Please enter a value to push";
+                    stackResult.className = 'result incorrect';
+                    stackResult.style.display = 'block';
+                    return;
+                }
+                
+                stack.push(value);
+                updateStackVisualization();
+                stackValueInput.value = '';
+                stackResult.style.display = 'none';
+            }
+            
+            function popStack() {
+                if (stack.length === 0) {
+                    stackResult.textContent = "Stack is empty!";
+                    stackResult.className = 'result incorrect';
+                    stackResult.style.display = 'block';
+                    return;
+                }
+                
+                const poppedValue = stack.pop();
+                stackResult.textContent = `Popped value: ${poppedValue}`;
+                stackResult.className = 'result correct';
+                stackResult.style.display = 'block';
+                updateStackVisualization();
+            }
+            
+            function clearStack() {
+                stack = [];
+                updateStackVisualization();
+                stackResult.style.display = 'none';
+            }
+            
+            function updateStackVisualization() {
+                stackContainer.innerHTML = '';
+                stack.forEach(value => {
+                    const elementDiv = document.createElement('div');
+                    elementDiv.className = 'stack-element';
+                    elementDiv.textContent = value;
+                    stackContainer.appendChild(elementDiv);
+                });
+            }
+            
+            // Queue Operations Simulator
+            const enqueueBtn = document.getElementById('enqueue');
+            const dequeueBtn = document.getElementById('dequeue');
+            const clearQueueBtn = document.getElementById('clear-queue');
+            const queueValueInput = document.getElementById('queue-value');
+            const queueContainer = document.getElementById('queue-container');
+            const queueResult = document.getElementById('queue-result');
+            
+            let queue = [];
+            
+            enqueueBtn.addEventListener('click', enqueue);
+            dequeueBtn.addEventListener('click', dequeue);
+            clearQueueBtn.addEventListener('click', clearQueue);
+            
+            function enqueue() {
+                const value = queueValueInput.value;
+                if (value === '') {
+                    queueResult.textContent = "Please enter a value to enqueue";
+                    queueResult.className = 'result incorrect';
+                    queueResult.style.display = 'block';
+                    return;
+                }
+                
+                queue.push(value);
+                updateQueueVisualization();
+                queueValueInput.value = '';
+                queueResult.style.display = 'none';
+            }
+            
+            function dequeue() {
+                if (queue.length === 0) {
+                    queueResult.textContent = "Queue is empty!";
+                    queueResult.className = 'result incorrect';
+                    queueResult.style.display = 'block';
+                    return;
+                }
+                
+                const dequeuedValue = queue.shift();
+                queueResult.textContent = `Dequeued value: ${dequeuedValue}`;
+                queueResult.className = 'result correct';
+                queueResult.style.display = 'block';
+                updateQueueVisualization();
+            }
+            
+            function clearQueue() {
+                queue = [];
+                updateQueueVisualization();
+                queueResult.style.display = 'none';
+            }
+            
+            function updateQueueVisualization() {
+                queueContainer.innerHTML = '';
+                queue.forEach(value => {
+                    const elementDiv = document.createElement('div');
+                    elementDiv.className = 'queue-element';
+                    elementDiv.textContent = value;
+                    queueContainer.appendChild(elementDiv);
+                });
+            }
+            
+            // Helper function to generate random array
+            function generateRandomArray(size, min, max) {
+                const arr = [];
+                for (let i = 0; i < size; i++) {
+                    arr.push(Math.floor(Math.random() * (max - min + 1)) + min);
+                }
+                return arr;
+            }
         }
 
         // Event listeners for MCQ filters
         document.querySelectorAll('.mcq-filter').forEach(filter => {
             filter.addEventListener('click', function() {
-                // Your existing implementation
+                // Update active filter
+                document.querySelectorAll('.mcq-filter').forEach(f => f.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Load questions for selected filter
+                const markFilter = this.getAttribute('data-mark');
+                loadMCQQuestions(markFilter);
             });
         });
 
@@ -1389,10 +2498,6 @@
             // Load all MCQ questions by default
             loadMCQQuestions('all');
             loadExamQuestions();
-            loadPDFResources();
-            
-            // Add event listener for close PDF button
-            document.getElementById('close-pdf-btn').addEventListener('click', closePdfViewer);
         };
     </script>
 </body>
