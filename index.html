@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Structures Learning Game</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --accent: #e74c3c;
+            --warning: #f39c12;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .tab.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .tab:hover:not(.active) {
+            background: #f8f9fa;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .module-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            border-left: 5px solid var(--primary);
+        }
+        
+        .module-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .module-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .module-card h3 span {
+            background: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+        
+        .topic-list {
+            list-style-type: none;
+            margin-top: 1rem;
+        }
+        
+        .topic-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .topic-list li:before {
+            content: "•";
+            color: var(--secondary);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .content-section {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: var(--shadow);
+            display: none;
+        }
+        
+        .active {
+            display: block;
+        }
+        
+        .back-btn {
+            background: var(--dark);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .back-btn:hover {
+            background: #1a252f;
+        }
+        
+        .concept {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .concept h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .visualization {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .quiz-section {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .question {
+            margin-bottom: 1.5rem;
+        }
+        
+        .options {
+            margin-top: 0.5rem;
+        }
+        
+        .option {
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .option:hover {
+            background: #e9ecef;
+        }
+        
+        .option.selected {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .submit-btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .submit-btn:hover {
+            background: #27ae60;
+        }
+        
+        .result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .correct {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: #e9ecef;
+            border-radius: 5px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: var(--secondary);
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        .exam-questions {
+            margin-top: 2rem;
+        }
+        
+        .exam-question {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .exam-question h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .answer-btn {
+            background: var(--warning);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        
+        .answer-btn:hover {
+            background: #e67e22;
+        }
+        
+        .answer-content {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .answer-content.show {
+            display: block;
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        
+        .game-container {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .game-area {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 1rem;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .game-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .game-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .game-btn:hover {
+            background: #2980b9;
+        }
+        
+        .game-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+        
+        .notes-section {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .note-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .note-item h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .mcq-section {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .mcq-filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .mcq-filter {
+            background: #e9ecef;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .mcq-filter.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .sortable-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .sortable-item {
+            background: var(--primary);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            cursor: grab;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+            user-select: none;
+        }
+        
+        .sortable-item:active {
+            cursor: grabbing;
+            transform: scale(1.05);
+        }
+        
+        .sortable-item.correct {
+            background: var(--secondary);
+        }
+        
+        .sortable-item.incorrect {
+            background: var(--accent);
+        }
+        
+        .tree-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px;
+        }
+        
+        .node-value {
+            background: var(--primary);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-bottom: 10px;
+            min-width: 50px;
+            text-align: center;
+        }
+        
+        .tree-children {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .stack-container {
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            border: 2px solid var(--dark);
+            border-top: none;
+            height: 300px;
+            width: 150px;
+            margin: 0 auto;
+            background: #f8f9fa;
+        }
+        
+        .stack-element {
+            background: var(--primary);
+            color: white;
+            width: 120px;
+            padding: 15px;
+            text-align: center;
+            margin: 2px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        
+        .queue-container {
+            display: flex;
+            align-items: center;
+            border: 2px solid var(--dark);
+            height: 100px;
+            width: 400px;
+            margin: 0 auto;
+            background: #f8f9fa;
+            overflow-x: auto;
+        }
+        
+        .queue-element {
+            background: var(--primary);
+            color: white;
+            min-width: 60px;
+            padding: 15px 10px;
+            text-align: center;
+            margin: 2px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        
+        .game-instructions {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            color: #856404;
+        }
+        
+        .game-title {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        /* PDF Viewer Styles */
+        .pdf-viewer-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .pdf-viewer-content {
+            background-color: white;
+            border-radius: 10px;
+            width: 90%;
+            height: 90%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .pdf-viewer-header {
+            padding: 1rem;
+            background-color: var(--dark);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .pdf-viewer-body {
+            flex: 1;
+            padding: 1rem;
+            overflow: auto;
+        }
+        
+        .pdf-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .pdf-resources {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .pdf-resources h4 {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .resource-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .resource-item {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+        
+        .pdf-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 0.5rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .pdf-btn:hover {
+            background: #2980b9;
+        }
+        
+        .pdf-btn-secondary {
+            background: var(--secondary);
+        }
+        
+        .pdf-btn-secondary:hover {
+            background: #27ae60;
+        }
+        
+        .tab-container {
+            margin-top: 1rem;
+        }
+        
+        .tab-buttons {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tab-button {
+            padding: 0.7rem 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--dark);
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab-button.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+        
+        .tab-content {
+            padding: 1.5rem 0;
+        }
+        
+        .tab-pane {
+            display: none;
+        }
+        
+        .tab-pane.active {
+            display: block;
+        }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .module-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
+            .queue-container {
+                width: 100%;
+            }
+            
+            .tab-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Data Structures Learning Game</h1>
+        <p>Master data structures through interactive lessons, games, and practice questions</p>
+    </header>
+    
+    <div class="container">
+        <div class="nav-tabs">
+            <div class="tab active" data-tab="modules">Learning Modules</div>
+            <div class="tab" data-tab="games">Interactive Games</div>
+            <div class="tab" data-tab="questions">Exam Questions</div>
+            <div class="tab" data-tab="resources">PDF Resources</div>
+            <div class="tab" data-tab="notes">Detailed Notes</div>
+        </div>
+        
+        <div id="modules-tab" class="tab-content active">
+            <div id="module-selection">
+                <h2>Select a Module to Learn</h2>
+                <div class="module-grid">
+                    <div class="module-card" data-module="1">
+                        <h3><span>1</span> Basic Concepts of Data Structures</h3>
+                        <ul class="topic-list">
+                            <li>Data Abstraction</li>
+                            <li>Performance Analysis</li>
+                            <li>Arrays & Sparse Matrices</li>
+                            <li>Stacks & Queues</li>
+                            <li>Expression Evaluation</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="module-card" data-module="2">
+                        <h3><span>2</span> Linked List and Memory Management</h3>
+                        <ul class="topic-list">
+                            <li>Singly Linked Lists</li>
+                            <li>Doubly & Circular Linked Lists</li>
+                            <li>Stacks & Queues using Linked Lists</li>
+                            <li>Memory Allocation Schemes</li>
+                            <li>Garbage Collection</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="module-card" data-module="3">
+                        <h3><span>3</span> Trees and Graphs</h3>
+                        <ul class="topic-list">
+                            <li>Tree Representation</li>
+                            <li>Binary Trees & Traversals</li>
+                            <li>Binary Search Trees</li>
+                            <li>Binary Heaps & Priority Queues</li>
+                            <li>Graph Representation & DFS</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="module-content" class="content-section">
+                <!-- Content will be dynamically loaded here -->
+            </div>
+        </div>
+        
+        <div id="games-tab" class="tab-content">
+            <div class="tab-container">
+                <div class="tab-buttons">
+                    <button class="tab-button active" data-tab="sorting">Sorting Challenge</button>
+                    <button class="tab-button" data-tab="tree">Binary Tree Builder</button>
+                    <button class="tab-button" data-tab="stack">Stack Simulator</button>
+                    <button class="tab-button" data-tab="queue">Queue Simulator</button>
+                </div>
+                
+                <div class="tab-content">
+                    <div class="tab-pane active" id="sorting-tab">
+                        <div class="game-container">
+                            <h3 class="game-title">Data Structure Sorting Challenge</h3>
+                            <div class="game-instructions">
+                                <strong>How to Play:</strong> Drag and drop the elements to sort them in ascending order. Click "Check Order" to verify your sorting.
+                            </div>
+                            
+                            <div class="game-area">
+                                <div id="sorting-game">
+                                    <div class="sortable-list" id="sortable-list">
+                                        <!-- Elements will be dynamically added here -->
+                                    </div>
+                                </div>
+                                <div class="game-stats">
+                                    <div>Score: <span id="sorting-score">0</span></div>
+                                    <div>Time: <span id="sorting-time">60</span>s</div>
+                                </div>
+                                <div class="game-controls">
+                                    <button class="game-btn" id="start-sorting">Start Game</button>
+                                    <button class="game-btn" id="check-sorting">Check Order</button>
+                                    <button class="game-btn" id="reset-sorting">Reset</button>
+                                </div>
+                                <div id="sorting-result" class="result"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-pane" id="tree-tab">
+                        <div class="game-container">
+                            <h3 class="game-title">Binary Tree Builder</h3>
+                            <div class="game-instructions">
+                                <strong>How to Play:</strong> Insert values to build a Binary Search Tree. The tree will automatically balance according to BST rules.
+                            </div>
+                            
+                            <div class="game-area">
+                                <div id="tree-game">
+                                    <div id="tree-visualization">
+                                        <!-- Tree visualization will be dynamically generated -->
+                                    </div>
+                                </div>
+                                <div class="game-controls">
+                                    <input type="number" id="tree-value" placeholder="Enter value">
+                                    <button class="game-btn" id="insert-value">Insert</button>
+                                    <button class="game-btn" id="clear-tree">Clear Tree</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-pane" id="stack-tab">
+                        <div class="game-container">
+                            <h3 class="game-title">Stack Operations Simulator</h3>
+                            <div class="game-instructions">
+                                <strong>How to Play:</strong> Use Push to add elements to the stack and Pop to remove them. Try to remember the LIFO (Last In First Out) principle.
+                            </div>
+                            
+                            <div class="game-area">
+                                <div id="stack-game">
+                                    <div class="stack-container" id="stack-container">
+                                        <!-- Stack elements will be dynamically added here -->
+                                    </div>
+                                </div>
+                                <div class="game-controls">
+                                    <input type="number" id="stack-value" placeholder="Enter value">
+                                    <button class="game-btn" id="push-stack">Push</button>
+                                    <button class="game-btn" id="pop-stack">Pop</button>
+                                    <button class="game-btn" id="clear-stack">Clear</button>
+                                </div>
+                                <div id="stack-result" class="result"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-pane" id="queue-tab">
+                        <div class="game-container">
+                            <h3 class="game-title">Queue Operations Simulator</h3>
+                            <div class="game-instructions">
+                                <strong>How to Play:</strong> Use Enqueue to add elements to the queue and Dequeue to remove them. Remember the FIFO (First In First Out) principle.
+                            </div>
+                            
+                            <div class="game-area">
+                                <div id="queue-game">
+                                    <div class="queue-container" id="queue-container">
+                                        <!-- Queue elements will be dynamically added here -->
+                                    </div>
+                                </div>
+                                <div class="game-controls">
+                                    <input type="number" id="queue-value" placeholder="Enter value">
+                                    <button class="game-btn" id="enqueue">Enqueue</button>
+                                    <button class="game-btn" id="dequeue">Dequeue</button>
+                                    <button class="game-btn" id="clear-queue">Clear</button>
+                                </div>
+                                <div id="queue-result" class="result"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="questions-tab" class="tab-content">
+            <h2>Exam Questions with Answers</h2>
+            
+            <div class="mcq-section">
+                <h3>Multiple Choice Questions</h3>
+                
+                <div class="mcq-filters">
+                    <button class="mcq-filter active" data-mark="all">All Questions</button>
+                    <button class="mcq-filter" data-mark="1">1 Mark Questions</button>
+                    <button class="mcq-filter" data-mark="2">2 Mark Questions</button>
+                    <button class="mcq-filter" data-mark="3">3 Mark Questions</button>
+                    <button class="mcq-filter" data-mark="4">4 Mark Questions</button>
+                </div>
+                
+                <div id="mcq-container">
+                    <!-- MCQ questions will be dynamically loaded here -->
+                </div>
+            </div>
+            
+            <div class="exam-questions">
+                <h3>Important Exam Questions with Detailed Answers</h3>
+                
+                <div id="exam-questions-container">
+                    <!-- Exam questions will be dynamically loaded here -->
+                </div>
+            </div>
+        </div>
+        
+        <div id="resources-tab" class="tab-content">
+            <h2>PDF Resources</h2>
+            <p>Download or view PDF materials for each module</p>
+            
+            <div id="pdf-resources-container">
+                <!-- PDF resources will be dynamically loaded here -->
+            </div>
+        </div>
+        
+        <div id="notes-tab" class="tab-content">
+            <h2>Detailed Notes</h2>
+            
+            <div class="notes-section">
+                <h3>Module 1: Basic Concepts of Data Structures</h3>
+                
+                <div class="note-item">
+                    <h4>Data Abstraction</h4>
+                    <p>Data abstraction is the process of hiding the implementation details and showing only the functionality to the user. In data structures, this means defining ADTs (Abstract Data Types) that specify operations without revealing how they're implemented.</p>
+                    <div class="code-block">
+                        // Example: Stack ADT<br>
+                        push(element) - Adds an element to the top<br>
+                        pop() - Removes and returns the top element<br>
+                        peek() - Returns the top element without removing it<br>
+                        isEmpty() - Checks if stack is empty
+                    </div>
+                </div>
+                
+                <div class="note-item">
+                    <h4>Performance Analysis</h4>
+                    <p>Performance analysis involves evaluating the efficiency of algorithms in terms of time and space complexity. We use Big O notation to describe how an algorithm's runtime or memory usage grows as input size increases.</p>
+                    <ul>
+                        <li><strong>O(1)</strong> - Constant time (e.g., accessing array element by index)</li>
+                        <li><strong>O(n)</strong> - Linear time (e.g., linear search)</li>
+                        <li><strong>O(n²)</strong> - Quadratic time (e.g., bubble sort)</li>
+                        <li><strong>O(log n)</strong> - Logarithmic time (e.g., binary search)</li>
+                    </ul>
+                </div>
+                
+                <!-- More notes would go here -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- PDF Viewer Modal -->
+    <div class="pdf-viewer-modal hidden" id="pdf-modal">
+        <div class="pdf-viewer-content">
+            <div class="pdf-viewer-header">
+                <h3 id="pdf-title">PDF Viewer</h3>
+                <button class="close-btn" id="close-pdf-btn">&times;</button>
+            </div>
+            <div class="pdf-viewer-body">
+                <iframe class="pdf-iframe" id="pdf-iframe" src=""></iframe>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Data Structures Learning Game &copy; 2023 | Based on PCCST303 Syllabus</p>
+    </footer>
+
+    <script>
+        // PDF Resources data
+        const pdfResources = {
+            1: [
+                {
+                    name: "Module 1 - Complete Notes",
+                    type: "pdf",
+                    url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                    description: "Complete notes for Module 1 topics including data abstraction, performance analysis, arrays, stacks, and queues"
+                },
+                {
+                    name: "Stacks and Queues Tutorial",
+                    type: "pdf", 
+                    url: "https://www.africau.edu/images/default/sample.pdf",
+                    description: "Detailed tutorial on stack and queue operations with examples and implementations"
+                },
+                {
+                    name: "Complexity Analysis Guide",
+                    type: "pdf",
+                    url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                    description: "Comprehensive guide to time and space complexity analysis with Big O notation"
+                },
+                {
+                    name: "Array Operations Handbook",
+                    type: "pdf",
+                    url: "https://www.africau.edu/images/default/sample.pdf",
+                    description: "Complete reference for array operations including sparse matrix representation"
+                }
+            ],
+            2: [
+                {
+                    name: "Module 2 - Complete Notes",
+                    type: "pdf",
+                    url: "https://www.africau.edu/images/default/sample.pdf",
+                    description: "Complete notes for Module 2 topics including linked lists and memory management"
+                },
+                {
+                    name: "Linked List Implementation Guide",
+                    type: "pdf",
+                    url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                    description: "Step-by-step guide to implementing singly, doubly, and circular linked lists"
+                },
+                {
+                    name: "Memory Management Techniques",
+                    type: "pdf",
+                    url: "https://www.africau.edu/images/default/sample.pdf",
+                    description: "Detailed explanation of memory allocation schemes and garbage collection"
+                },
+                {
+                    name: "Advanced Linked List Operations",
+                    type: "pdf",
+                    url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                    description: "Advanced operations on linked lists including reversal and cycle detection"
+                }
+            ],
+            3: [
+                {
+                    name: "Module 3 - Complete Notes",
+                    type: "pdf",
+                    url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                    description: "Complete notes for Module 3 topics including trees and graphs"
+                },
+                {
+                    name: "Tree Traversal Algorithms",
+                    type: "pdf",
+                    url: "https://www.africau.edu/images/default/sample.pdf",
+                    description: "Detailed explanation of tree traversal methods with code examples"
+                },
+                {
+                    name: "Graph Theory Fundamentals",
+                    type: "pdf",
+                    url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                    description: "Introduction to graph theory, representations, and basic algorithms"
+                },
+                {
+                    name: "Binary Search Trees Complete Guide",
+                    type: "pdf",
+                    url: "https://www.africau.edu/images/default/sample.pdf",
+                    description: "Comprehensive guide to BST operations, balancing, and applications"
+                }
+            ]
+        };
+
+        // Module data (your existing data remains the same)
+        const modules = {
+            1: {
+                title: "Basic Concepts of Data Structures",
+                concepts: [
+                    {
+                        title: "Data Abstraction",
+                        content: "Data abstraction is the process of hiding the implementation details and showing only the functionality to the user. In data structures, this means defining ADTs (Abstract Data Types) that specify operations without revealing how they're implemented.",
+                        example: "Think of a car's steering wheel - you know how to use it to turn the car, but you don't need to know the mechanical details of how it works."
+                    },
+                    // ... rest of your existing module data
+                ],
+                quiz: [
+                    // ... your existing quiz data
+                ]
+            },
+            2: {
+                // ... your existing module 2 data
+            },
+            3: {
+                // ... your existing module 3 data
+            }
+        };
+
+        // ... your existing MCQ and exam questions data
+
+        // DOM elements
+        const moduleSelection = document.getElementById('module-selection');
+        const moduleContent = document.getElementById('module-content');
+        const moduleCards = document.querySelectorAll('.module-card');
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const examQuestionsContainer = document.getElementById('exam-questions-container');
+        const pdfResourcesContainer = document.getElementById('pdf-resources-container');
+
+        // Event listeners for tabs
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.getAttribute('data-tab');
+                
+                // Update active tab
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Show corresponding content
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === `${tabId}-tab`) {
+                        content.classList.add('active');
+                    }
+                });
+                
+                // Load content for specific tabs
+                if (tabId === 'questions') {
+                    loadMCQQuestions('all');
+                    loadExamQuestions();
+                } else if (tabId === 'games') {
+                    initializeGames();
+                } else if (tabId === 'resources') {
+                    loadPDFResources();
+                }
+            });
+        });
+
+        // Event listeners for module selection
+        moduleCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const moduleId = card.getAttribute('data-module');
+                loadModuleContent(moduleId);
+            });
+        });
+
+        // Function to load PDF resources
+        function loadPDFResources() {
+            pdfResourcesContainer.innerHTML = '';
+            
+            for (const moduleId in pdfResources) {
+                const moduleResources = pdfResources[moduleId];
+                
+                const moduleHTML = `
+                    <div class="notes-section">
+                        <h3>Module ${moduleId} Resources</h3>
+                        <div class="resource-list">
+                `;
+                
+                moduleResources.forEach((resource, index) => {
+                    moduleHTML += `
+                        <div class="resource-item">
+                            <h4>${resource.name}</h4>
+                            <p>${resource.description}</p>
+                            <div>
+                                <button class="pdf-btn view-pdf-btn" data-module="${moduleId}" data-resource="${index}">View PDF</button>
+                                <a href="${resource.url}" class="pdf-btn pdf-btn-secondary" download="${resource.name}.pdf">Download PDF</a>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                moduleHTML += `</div></div>`;
+                pdfResourcesContainer.innerHTML += moduleHTML;
+            }
+            
+            // Add event listeners to view PDF buttons
+            document.querySelectorAll('.view-pdf-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const moduleId = this.getAttribute('data-module');
+                    const resourceIndex = parseInt(this.getAttribute('data-resource'));
+                    openPdfViewer(pdfResources[moduleId][resourceIndex]);
+                });
+            });
+        }
+
+        // Function to open PDF viewer
+        function openPdfViewer(resource) {
+            const pdfModal = document.getElementById('pdf-modal');
+            const pdfIframe = document.getElementById('pdf-iframe');
+            const pdfTitle = document.getElementById('pdf-title');
+            
+            pdfTitle.textContent = resource.name;
+            pdfIframe.src = resource.url;
+            pdfModal.classList.remove('hidden');
+            
+            // Prevent body scrolling when modal is open
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Function to close PDF viewer
+        function closePdfViewer() {
+            const pdfModal = document.getElementById('pdf-modal');
+            const pdfIframe = document.getElementById('pdf-iframe');
+            
+            pdfModal.classList.add('hidden');
+            pdfIframe.src = '';
+            
+            // Restore body scrolling
+            document.body.style.overflow = 'auto';
+        }
+
+        // Add PDF resources to module content
+        function loadModuleContent(moduleId) {
+            const module = modules[moduleId];
+            
+            let contentHTML = `
+                <button class="back-btn" onclick="showModuleSelection()">← Back to Modules</button>
+                <h2>Module ${moduleId}: ${module.title}</h2>
+                <div class="progress-bar">
+                    <div class="progress" id="progress-bar"></div>
+                </div>
+                
+                <div class="concepts-section">
+            `;
+            
+            // Add concepts (your existing code)
+            module.concepts.forEach((concept, index) => {
+                contentHTML += `
+                    <div class="concept">
+                        <h3>${concept.title}</h3>
+                        <p>${concept.content}</p>
+                        <div class="visualization">
+                            <strong>Example:</strong> ${concept.example}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            contentHTML += `</div>`;
+            
+            // Add PDF resources section to module content
+            if (pdfResources[moduleId]) {
+                contentHTML += `
+                    <div class="pdf-resources">
+                        <h3>PDF Resources for Module ${moduleId}</h3>
+                        <div class="resource-list">
+                `;
+                
+                pdfResources[moduleId].forEach((resource, index) => {
+                    contentHTML += `
+                        <div class="resource-item">
+                            <h4>${resource.name}</h4>
+                            <p>${resource.description}</p>
+                            <div>
+                                <button class="pdf-btn view-pdf-btn" data-module="${moduleId}" data-resource="${index}">View PDF</button>
+                                <a href="${resource.url}" class="pdf-btn pdf-btn-secondary" download="${resource.name}.pdf">Download PDF</a>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                contentHTML += `</div></div>`;
+            }
+            
+            // Add quiz section (your existing code)
+            contentHTML += `
+                <div class="quiz-section">
+                    <h3>Test Your Knowledge</h3>
+                    <div id="quiz-container">
+            `;
+            
+            module.quiz.forEach((q, index) => {
+                contentHTML += `
+                    <div class="question">
+                        <p><strong>Q${index + 1}:</strong> ${q.question}</p>
+                        <div class="options" data-question="${index}">
+                `;
+                
+                q.options.forEach((option, optIndex) => {
+                    contentHTML += `
+                        <div class="option" data-option="${optIndex}">${option}</div>
+                    `;
+                });
+                
+                contentHTML += `</div></div>`;
+            });
+            
+            contentHTML += `
+                    <button class="submit-btn" onclick="checkQuiz(${moduleId})">Submit Answers</button>
+                    <div id="quiz-result" class="result"></div>
+                </div>
+            </div>
+            `;
+            
+            // Add exam questions section (your existing code)
+            contentHTML += `
+                <div class="exam-questions">
+                    <h3>Important Exam Questions</h3>
+            `;
+            
+            examQuestions[moduleId].forEach((q, index) => {
+                contentHTML += `
+                    <div class="exam-question">
+                        <h4>Question ${index + 1} (${q.marks} marks)</h4>
+                        <p>${q.question}</p>
+                        <button class="answer-btn" onclick="toggleAnswer(${moduleId}, ${index})">Show Answer</button>
+                        <div class="answer-content" id="answer-${moduleId}-${index}">
+                            ${q.answer}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            contentHTML += `</div>`;
+            
+            moduleContent.innerHTML = contentHTML;
+            moduleSelection.style.display = 'none';
+            moduleContent.classList.add('active');
+            
+            // Add event listeners to PDF buttons in module content
+            setTimeout(() => {
+                document.querySelectorAll('.view-pdf-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const moduleId = this.getAttribute('data-module');
+                        const resourceIndex = parseInt(this.getAttribute('data-resource'));
+                        openPdfViewer(pdfResources[moduleId][resourceIndex]);
+                    });
+                });
+            }, 100);
+            
+            // Add event listeners to quiz options (your existing code)
+            setTimeout(() => {
+                const options = document.querySelectorAll('.option');
+                options.forEach(option => {
+                    option.addEventListener('click', function() {
+                        const questionIndex = this.parentElement.getAttribute('data-question');
+                        const optionIndex = this.getAttribute('data-option');
+                        
+                        // Remove selected class from all options in this question
+                        const siblings = this.parentElement.querySelectorAll('.option');
+                        siblings.forEach(sibling => {
+                            sibling.classList.remove('selected');
+                        });
+                        
+                        // Add selected class to clicked option
+                        this.classList.add('selected');
+                    });
+                });
+            }, 100);
+        }
+
+        // Add event listener for close PDF button
+        document.getElementById('close-pdf-btn').addEventListener('click', closePdfViewer);
+
+        // Add tab functionality for games
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const tabId = this.dataset.tab;
+                
+                // Update tab buttons
+                document.querySelectorAll('.tab-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Update tab content
+                document.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.remove('active');
+                });
+                document.getElementById(`${tabId}-tab`).classList.add('active');
+            });
+        });
+
+        // Your existing functions remain the same
+        function showModuleSelection() {
+            moduleContent.classList.remove('active');
+            moduleSelection.style.display = 'block';
+        }
+
+        function checkQuiz(moduleId) {
+            // Your existing implementation
+        }
+
+        function loadMCQQuestions(markFilter) {
+            // Your existing implementation
+        }
+
+        function checkMCQAnswer(questionIndex, correctAnswer, markFilter) {
+            // Your existing implementation
+        }
+
+        function loadExamQuestions() {
+            // Your existing implementation
+        }
+
+        function toggleAnswer(moduleId, questionIndex) {
+            // Your existing implementation
+        }
+
+        function toggleExamAnswer(moduleId, questionIndex) {
+            // Your existing implementation
+        }
+
+        function initializeGames() {
+            // Your existing implementation
+        }
+
+        // Event listeners for MCQ filters
+        document.querySelectorAll('.mcq-filter').forEach(filter => {
+            filter.addEventListener('click', function() {
+                // Your existing implementation
+            });
+        });
+
+        // Initialize the page
+        window.onload = function() {
+            // Load all MCQ questions by default
+            loadMCQQuestions('all');
+            loadExamQuestions();
+            loadPDFResources();
+            
+            // Add event listener for close PDF button
+            document.getElementById('close-pdf-btn').addEventListener('click', closePdfViewer);
+        };
+    </script>
+</body>
+</html>
